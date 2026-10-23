@@ -39,3 +39,7 @@ The separation of anomaly, crash, and simulated power-loss tests follows the dis
 ## Linux validation increment
 
 The [Linux harness](linux-validation.md) now adds real ext4 process-kill/recovery and volume-reattachment checks, plus short-write/ENOSPC handling on bounded tmpfs. [Recorded results](validation/2026-10-23.md) distinguish native ARM64 from emulated x86-64. These checks leave the kernel alive; actual power interruption, journaling-filesystem disk-full behavior and deployment-device validation remain open.
+
+## Disposable VM cut increment
+
+The [QEMU guest harness](vm-power-loss-testing.md) now boots a real Linux kernel on ext4/XFS, removes guest RAM and unflushed virtual-device writes, then boots an independent recovery guest. [Measured results](validation/vm-power-loss-2026-10-23.md) distinguish this evidence from process kills, trace simulations and physical host/drive power cuts. The earlier simulator remains complementary: virtual-device flushes are atomic with respect to controller cuts, so this VM campaign does not explore every mid-flush or sector-reordering outcome.

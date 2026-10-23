@@ -5,3 +5,5 @@
 /fuzz/artifacts/
 /fuzz/corpus/
 /validation-results/
+
+__pycache__/
