@@ -373,7 +373,7 @@ impl Db {
             let now = self.now(s)?;
             let current = s.map.get(key).filter(|i| i.live(now));
             if let DeleteCondition::Version(v) = condition
-                && !current.is_some_and(|i| i.version == v)
+                && current.is_none_or(|i| i.version != v)
             {
                 return Err(Error::Conflict);
             }
