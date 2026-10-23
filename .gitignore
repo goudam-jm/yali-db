@@ -1,0 +1,7 @@
+/target/
+*.yalidb/
+
+/fuzz/target/
+/fuzz/artifacts/
+/fuzz/corpus/
+/validation-results/

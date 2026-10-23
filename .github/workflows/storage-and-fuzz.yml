@@ -1,0 +1,70 @@
+name: Linux storage and fuzzing
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      fuzz_seconds:
+        description: 'Seconds per fuzz target (1–1800); push/PR runs use 60'
+        type: number
+        default: 1800
+permissions:
+  contents: read
+concurrency:
+  group: validation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  linux-storage:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            platform: linux/amd64
+            arch: amd64
+          - runner: ubuntu-24.04-arm
+            platform: linux/arm64
+            arch: arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build --platform '${{ matrix.platform }}' -t yalidb-validation:ci -f scripts/linux-validation/Dockerfile .
+      - run: python3 scripts/run-linux.py --platform '${{ matrix.platform }}' --image yalidb-validation:ci --seeds 64 --output validation-results/linux-${{ matrix.arch }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: linux-storage-${{ matrix.arch }}
+          path: validation-results/
+          retention-days: 14
+  coverage-guided-fuzz:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [decode, recovery, state]
+    env:
+      FUZZ_SECONDS: ${{ github.event.inputs.fuzz_seconds || '60' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: nightly-2026-10-22
+          components: rust-src
+      - uses: actions/cache@v4
+        with:
+          path: fuzz/corpus/${{ matrix.target }}
+          key: fuzz-corpus-${{ matrix.target }}-${{ github.run_id }}
+          restore-keys: fuzz-corpus-${{ matrix.target }}-
+      - run: cargo install cargo-fuzz --version 0.13.2 --locked
+      - run: cargo fetch --locked --manifest-path fuzz/Cargo.toml
+      - name: Validate campaign budget
+        run: python3 -c 'import os; n=int(os.environ["FUZZ_SECONDS"]); assert 1 <= n <= 1800'
+      - run: python3 scripts/run-fuzz.py --targets '${{ matrix.target }}' --seconds "$FUZZ_SECONDS" --parallel 1 --output validation-results/fuzz-${{ matrix.target }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fuzz-${{ matrix.target }}
+          path: validation-results/
+          retention-days: 14

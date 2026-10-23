@@ -1,0 +1,17 @@
+[package]
+name = "yalidb-core"
+description = "Experimental embedded durable byte-key store with TTL and conditional writes"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[features]
+# Exposes bounded test entry points only; not a supported application API.
+fuzzing = []
+
+[dependencies]
+crc32fast = "1.5"
+
+[dev-dependencies]
+tempfile = "3.27"

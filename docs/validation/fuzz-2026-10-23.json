@@ -1,0 +1,150 @@
+{
+  "status": "passed",
+  "source_sha256": "00e45ea3ee13806ae41a7fae9787a92cd4b19ecfbaa48220582c2ab4955fd0a3",
+  "machine": "arm64",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "nightly": "nightly-2026-10-22",
+  "cargo_fuzz": "cargo-fuzz 0.13.2",
+  "rust": "rustc 1.101.0-nightly (1a2c4797e 2026-10-21)",
+  "sanitizer": "address",
+  "build_std": true,
+  "seconds_per_target": 300,
+  "seed": 20261023,
+  "targets": [
+    {
+      "target": "decode",
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 304.374,
+      "stats": {
+        "number_of_executed_units": 21471357,
+        "average_exec_per_sec": 71333,
+        "new_units_added": 201,
+        "slowest_unit_time_sec": 0,
+        "peak_rss_mb": 525
+      },
+      "executions": 21471357,
+      "fuzz_seconds": 301,
+      "coverage_counters": 280,
+      "corpus_before_minimization": {
+        "files": 356,
+        "bytes": 2551562
+      },
+      "command": [
+        "cargo",
+        "+nightly-2026-10-22",
+        "fuzz",
+        "run",
+        "--build-std",
+        "--fuzz-dir",
+        "$WORKSPACE/fuzz",
+        "decode",
+        "$WORKSPACE/fuzz/corpus/decode",
+        "--",
+        "-max_total_time=300",
+        "-max_len=131072",
+        "-rss_limit_mb=1024",
+        "-timeout=10",
+        "-seed=20261023",
+        "-print_final_stats=1",
+        "-artifact_prefix=$WORKSPACE/validation-results/fuzz-final-20261023/decode/artifacts/"
+      ],
+      "minimization_exit_code": 0,
+      "corpus_after_minimization": {
+        "files": 141,
+        "bytes": 1096689
+      },
+      "artifact_count": 0
+    },
+    {
+      "target": "recovery",
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 304.356,
+      "stats": {
+        "number_of_executed_units": 1751836,
+        "average_exec_per_sec": 5820,
+        "new_units_added": 422,
+        "slowest_unit_time_sec": 0,
+        "peak_rss_mb": 530
+      },
+      "executions": 1751836,
+      "fuzz_seconds": 301,
+      "coverage_counters": 800,
+      "corpus_before_minimization": {
+        "files": 520,
+        "bytes": 979231
+      },
+      "command": [
+        "cargo",
+        "+nightly-2026-10-22",
+        "fuzz",
+        "run",
+        "--build-std",
+        "--fuzz-dir",
+        "$WORKSPACE/fuzz",
+        "recovery",
+        "$WORKSPACE/fuzz/corpus/recovery",
+        "--",
+        "-max_total_time=300",
+        "-max_len=131072",
+        "-rss_limit_mb=1024",
+        "-timeout=10",
+        "-seed=20261023",
+        "-print_final_stats=1",
+        "-artifact_prefix=$WORKSPACE/validation-results/fuzz-final-20261023/recovery/artifacts/"
+      ],
+      "minimization_exit_code": 0,
+      "corpus_after_minimization": {
+        "files": 274,
+        "bytes": 380790
+      },
+      "artifact_count": 0
+    },
+    {
+      "target": "state",
+      "status": "passed",
+      "exit_code": 0,
+      "wall_seconds": 304.356,
+      "stats": {
+        "number_of_executed_units": 2562437,
+        "average_exec_per_sec": 8513,
+        "new_units_added": 452,
+        "slowest_unit_time_sec": 0,
+        "peak_rss_mb": 547
+      },
+      "executions": 2562437,
+      "fuzz_seconds": 301,
+      "coverage_counters": 752,
+      "corpus_before_minimization": {
+        "files": 690,
+        "bytes": 577419
+      },
+      "command": [
+        "cargo",
+        "+nightly-2026-10-22",
+        "fuzz",
+        "run",
+        "--build-std",
+        "--fuzz-dir",
+        "$WORKSPACE/fuzz",
+        "state",
+        "$WORKSPACE/fuzz/corpus/state",
+        "--",
+        "-max_total_time=300",
+        "-max_len=131072",
+        "-rss_limit_mb=1024",
+        "-timeout=10",
+        "-seed=20261023",
+        "-print_final_stats=1",
+        "-artifact_prefix=$WORKSPACE/validation-results/fuzz-final-20261023/state/artifacts/"
+      ],
+      "minimization_exit_code": 0,
+      "corpus_after_minimization": {
+        "files": 307,
+        "bytes": 206986
+      },
+      "artifact_count": 0
+    }
+  ]
+}

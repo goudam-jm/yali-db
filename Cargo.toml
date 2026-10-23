@@ -1,0 +1,14 @@
+[workspace]
+members = ["yalidb-core", "yalidb-server"]
+resolver = "3"
+exclude = ["fuzz"]
+
+[workspace.package]
+edition = "2024"
+rust-version = "1.89"
+license = "MIT OR Apache-2.0"
+version = "0.1.0"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
