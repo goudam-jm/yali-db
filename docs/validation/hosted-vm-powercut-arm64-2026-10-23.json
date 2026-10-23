@@ -1,0 +1,2769 @@
+{
+  "status": "passed",
+  "source_sha256": "a4d2920f374558257a5d7d035a229d071461944f45c1f677951650f9e0770ff1",
+  "ci_sha": "12c10f05442e270d7403964f5f696495ebd9d42d",
+  "host_kernel": "6.17.0-1022-azure",
+  "machine": "aarch64",
+  "qemu": "QEMU emulator version 7.2.22 (Debian 1:7.2+dfsg-7+deb12u18+b3)",
+  "guest_kernel": "6.1.0-54-arm64",
+  "rust": "rustc 1.99.0 (b940084d7 2026-09-28)",
+  "kernel_sha256": "cbc7dcd22b574dee70d2ebe575a525ed7dfeb04aaccc2da67c0b1a776d971098",
+  "initrd_sha256": "7e4ea3405ee005d53936d5a63fd9a4a21a511f4ca2b77c0161db0d56441adf30",
+  "scope": "abrupt QEMU guest RAM loss plus discarded unflushed NBD cache; not physical host/drive power loss",
+  "cases": [
+    {
+      "id": "ext4-01-ack",
+      "filesystem": "ext4",
+      "seed": 101,
+      "boundary": "ack",
+      "acknowledged_operations": 6,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/ext4-01-ack/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data ext4 rw,noatime 0 0"
+      ],
+      "baseline_checkpoint_bytes": 0,
+      "acknowledged_state": {
+        "slot:5": [
+          109291419941,
+          1
+        ],
+        "slot:7": [
+          11317850872968652727,
+          6
+        ],
+        "slot:13": [
+          6416548018613482861,
+          3
+        ],
+        "slot:14": [
+          3788927691027281118,
+          5
+        ]
+      },
+      "acknowledged_sequence": 6,
+      "device_power_cut": {
+        "discarded_bytes": 0,
+        "counts": {
+          "write": 45,
+          "flush": 26,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 25784320
+      },
+      "pre_recovery_archive_sha256": "4dc1ebd39d7020fa2d5b47095aa2e7535f596c69cd52c2450a27c99208312312",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 6,
+        "state": {
+          "slot:13": [
+            6416548018613482861,
+            3
+          ],
+          "slot:14": [
+            3788927691027281118,
+            5
+          ],
+          "slot:5": [
+            109291419941,
+            1
+          ],
+          "slot:7": [
+            11317850872968652727,
+            6
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data ext4 rw,noatime 0 0"
+        ]
+      }
+    },
+    {
+      "id": "ext4-02-write",
+      "filesystem": "ext4",
+      "seed": 102,
+      "boundary": "write",
+      "acknowledged_operations": 6,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/ext4-02-write/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data ext4 rw,noatime 0 0"
+      ],
+      "baseline_checkpoint_bytes": 0,
+      "acknowledged_state": {
+        "slot:6": [
+          17595323056555375446,
+          3
+        ],
+        "slot:0": [
+          5314529811308305568,
+          4
+        ],
+        "slot:9": [
+          2155044782532916761,
+          5
+        ]
+      },
+      "acknowledged_sequence": 6,
+      "pending": [
+        "BEGIN",
+        "7",
+        "P",
+        "slot:14",
+        "9982209959505490926"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 4096,
+        "counts": {
+          "write": 46,
+          "flush": 26,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 25784320
+      },
+      "pre_recovery_archive_sha256": "9bee0ff2ae04e825ed6dc5608eae7c09457020c32c0002db70a9f37567a9cd65",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 6,
+        "state": {
+          "slot:0": [
+            5314529811308305568,
+            4
+          ],
+          "slot:6": [
+            17595323056555375446,
+            3
+          ],
+          "slot:9": [
+            2155044782532916761,
+            5
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data ext4 rw,noatime 0 0"
+        ]
+      }
+    },
+    {
+      "id": "ext4-03-before-flush",
+      "filesystem": "ext4",
+      "seed": 103,
+      "boundary": "before-flush",
+      "acknowledged_operations": 6,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/ext4-03-before-flush/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data ext4 rw,noatime 0 0"
+      ],
+      "baseline_checkpoint_bytes": 0,
+      "acknowledged_state": {
+        "slot:4": [
+          15150564207202309556,
+          5
+        ],
+        "slot:15": [
+          8012362473434717567,
+          2
+        ],
+        "slot:5": [
+          13589037621184355461,
+          3
+        ],
+        "slot:12": [
+          11233207271225255036,
+          4
+        ]
+      },
+      "acknowledged_sequence": 5,
+      "pending": [
+        "BEGIN",
+        "7",
+        "P",
+        "slot:15",
+        "2936890223668063647"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 28672,
+        "counts": {
+          "write": 44,
+          "flush": 24,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 25767936
+      },
+      "pre_recovery_archive_sha256": "8b73b6f9f7baa3107735e40170404330e5fa515c63757b8c3e097d866773f503",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 5,
+        "state": {
+          "slot:12": [
+            11233207271225255036,
+            4
+          ],
+          "slot:15": [
+            8012362473434717567,
+            2
+          ],
+          "slot:4": [
+            15150564207202309556,
+            5
+          ],
+          "slot:5": [
+            13589037621184355461,
+            3
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data ext4 rw,noatime 0 0"
+        ]
+      }
+    },
+    {
+      "id": "ext4-04-after-flush",
+      "filesystem": "ext4",
+      "seed": 104,
+      "boundary": "after-flush",
+      "acknowledged_operations": 6,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/ext4-04-after-flush/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data ext4 rw,noatime 0 0"
+      ],
+      "baseline_checkpoint_bytes": 0,
+      "acknowledged_state": {
+        "slot:8": [
+          8547721714859123496,
+          3
+        ],
+        "slot:12": [
+          9230806328355011164,
+          2
+        ],
+        "slot:14": [
+          8883330990174568318,
+          6
+        ],
+        "slot:4": [
+          6176465802163881332,
+          5
+        ]
+      },
+      "acknowledged_sequence": 6,
+      "pending": [
+        "BEGIN",
+        "7",
+        "P",
+        "slot:0",
+        "8517742531037218048"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 0,
+        "counts": {
+          "write": 47,
+          "flush": 27,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 25812992
+      },
+      "pre_recovery_archive_sha256": "81948684d6272088e9c2b49cc755fc03d702b7a43c316a39be7294e47a5e810c",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 6,
+        "state": {
+          "slot:12": [
+            9230806328355011164,
+            2
+          ],
+          "slot:14": [
+            8883330990174568318,
+            6
+          ],
+          "slot:4": [
+            6176465802163881332,
+            5
+          ],
+          "slot:8": [
+            8547721714859123496,
+            3
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data ext4 rw,noatime 0 0"
+        ]
+      }
+    },
+    {
+      "id": "ext4-05-write",
+      "filesystem": "ext4",
+      "seed": 105,
+      "boundary": "write",
+      "acknowledged_operations": 10,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/ext4-05-write/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data ext4 rw,noatime 0 0"
+      ],
+      "baseline_checkpoint_bytes": 0,
+      "acknowledged_state": {
+        "slot:9": [
+          113621547561,
+          1
+        ],
+        "slot:13": [
+          10383656373497245213,
+          2
+        ],
+        "slot:11": [
+          16136990412269440331,
+          4
+        ],
+        "slot:15": [
+          10229853414016280447,
+          6
+        ],
+        "slot:1": [
+          15308606750086159217,
+          7
+        ],
+        "slot:7": [
+          15192029995474925447,
+          8
+        ],
+        "slot:8": [
+          3804298867794710312,
+          9
+        ],
+        "slot:6": [
+          1468595190306267958,
+          10
+        ]
+      },
+      "acknowledged_sequence": 10,
+      "pending": [
+        "BEGIN",
+        "11",
+        "P",
+        "slot:0",
+        "6915870811568567408"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 4096,
+        "counts": {
+          "write": 68,
+          "flush": 42,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 25989120
+      },
+      "pre_recovery_archive_sha256": "6d39fd336d19e793f5f5418f25d882a41d539acf654ffc3eeebf2d9008640536",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 10,
+        "state": {
+          "slot:1": [
+            15308606750086159217,
+            7
+          ],
+          "slot:11": [
+            16136990412269440331,
+            4
+          ],
+          "slot:13": [
+            10383656373497245213,
+            2
+          ],
+          "slot:15": [
+            10229853414016280447,
+            6
+          ],
+          "slot:6": [
+            1468595190306267958,
+            10
+          ],
+          "slot:7": [
+            15192029995474925447,
+            8
+          ],
+          "slot:8": [
+            3804298867794710312,
+            9
+          ],
+          "slot:9": [
+            113621547561,
+            1
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data ext4 rw,noatime 0 0"
+        ]
+      }
+    },
+    {
+      "id": "ext4-06-before-flush",
+      "filesystem": "ext4",
+      "seed": 106,
+      "boundary": "before-flush",
+      "acknowledged_operations": 10,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/ext4-06-before-flush/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data ext4 rw,noatime 0 0"
+      ],
+      "baseline_checkpoint_bytes": 0,
+      "acknowledged_state": {
+        "slot:15": [
+          11536792326022566623,
+          2
+        ],
+        "slot:12": [
+          5766802627280108844,
+          4
+        ],
+        "slot:6": [
+          18070571710149989846,
+          5
+        ],
+        "slot:13": [
+          12964968268984975901,
+          9
+        ],
+        "slot:2": [
+          12447630740212253938,
+          7
+        ],
+        "slot:11": [
+          7456725635121533819,
+          8
+        ]
+      },
+      "acknowledged_sequence": 9,
+      "pending": [
+        "BEGIN",
+        "11",
+        "P",
+        "slot:9",
+        "135589012878703193"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 12288,
+        "counts": {
+          "write": 66,
+          "flush": 40,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 25972736
+      },
+      "pre_recovery_archive_sha256": "3e498e828794941aa152bad8eb36a857d68ff5f163654e7a9b4ee1fce94389c2",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 9,
+        "state": {
+          "slot:11": [
+            7456725635121533819,
+            8
+          ],
+          "slot:12": [
+            5766802627280108844,
+            4
+          ],
+          "slot:13": [
+            12964968268984975901,
+            9
+          ],
+          "slot:15": [
+            11536792326022566623,
+            2
+          ],
+          "slot:2": [
+            12447630740212253938,
+            7
+          ],
+          "slot:6": [
+            18070571710149989846,
+            5
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data ext4 rw,noatime 0 0"
+        ]
+      }
+    },
+    {
+      "id": "ext4-07-after-flush",
+      "filesystem": "ext4",
+      "seed": 107,
+      "boundary": "after-flush",
+      "acknowledged_operations": 10,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/ext4-07-after-flush/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data ext4 rw,noatime 0 0"
+      ],
+      "baseline_checkpoint_bytes": 0,
+      "acknowledged_state": {
+        "slot:14": [
+          12689642336536626846,
+          1
+        ],
+        "slot:3": [
+          13857371622492841779,
+          8
+        ],
+        "slot:9": [
+          11912928579061316873,
+          3
+        ],
+        "slot:12": [
+          14026238926351455612,
+          5
+        ],
+        "slot:6": [
+          9018454538691957974,
+          6
+        ],
+        "slot:15": [
+          7679272831406628351,
+          7
+        ]
+      },
+      "acknowledged_sequence": 8,
+      "pending": [
+        "BEGIN",
+        "11",
+        "P",
+        "slot:13",
+        "2101902013416115389"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 0,
+        "counts": {
+          "write": 63,
+          "flush": 39,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 25968640
+      },
+      "pre_recovery_archive_sha256": "f74e300fa7b90c53c1c23c1ca058cd519023cc3d6bd5d250cd247d8609d43f91",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 8,
+        "state": {
+          "slot:12": [
+            14026238926351455612,
+            5
+          ],
+          "slot:14": [
+            12689642336536626846,
+            1
+          ],
+          "slot:15": [
+            7679272831406628351,
+            7
+          ],
+          "slot:3": [
+            13857371622492841779,
+            8
+          ],
+          "slot:6": [
+            9018454538691957974,
+            6
+          ],
+          "slot:9": [
+            11912928579061316873,
+            3
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data ext4 rw,noatime 0 0"
+        ]
+      }
+    },
+    {
+      "id": "ext4-08-write",
+      "filesystem": "ext4",
+      "seed": 108,
+      "boundary": "write",
+      "acknowledged_operations": 16,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/ext4-08-write/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data ext4 rw,noatime 0 0"
+      ],
+      "baseline_checkpoint_bytes": 0,
+      "acknowledged_state": {
+        "slot:12": [
+          1937824549115458316,
+          3
+        ],
+        "slot:1": [
+          671732612978156593,
+          5
+        ],
+        "slot:9": [
+          8423550389501017913,
+          6
+        ],
+        "slot:7": [
+          3860869994864365063,
+          7
+        ],
+        "slot:11": [
+          14850535001349429851,
+          8
+        ],
+        "slot:15": [
+          14824284701934226607,
+          9
+        ],
+        "slot:6": [
+          1011846599290398198,
+          12
+        ],
+        "slot:8": [
+          16736825770283130696,
+          11
+        ],
+        "slot:13": [
+          10027885836214754269,
+          14
+        ],
+        "slot:10": [
+          16499697823307959338,
+          15
+        ],
+        "slot:2": [
+          14730796898044337074,
+          16
+        ]
+      },
+      "acknowledged_sequence": 16,
+      "pending": [
+        "BEGIN",
+        "17",
+        "P",
+        "slot:5",
+        "3000308534849945733"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 4096,
+        "counts": {
+          "write": 106,
+          "flush": 70,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 26361856
+      },
+      "pre_recovery_archive_sha256": "99396d213390349852729d058bfe9d361e2a8fb626160ab708217937175b02b7",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 16,
+        "state": {
+          "slot:1": [
+            671732612978156593,
+            5
+          ],
+          "slot:10": [
+            16499697823307959338,
+            15
+          ],
+          "slot:11": [
+            14850535001349429851,
+            8
+          ],
+          "slot:12": [
+            1937824549115458316,
+            3
+          ],
+          "slot:13": [
+            10027885836214754269,
+            14
+          ],
+          "slot:15": [
+            14824284701934226607,
+            9
+          ],
+          "slot:2": [
+            14730796898044337074,
+            16
+          ],
+          "slot:6": [
+            1011846599290398198,
+            12
+          ],
+          "slot:7": [
+            3860869994864365063,
+            7
+          ],
+          "slot:8": [
+            16736825770283130696,
+            11
+          ],
+          "slot:9": [
+            8423550389501017913,
+            6
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data ext4 rw,noatime 0 0"
+        ]
+      }
+    },
+    {
+      "id": "ext4-09-before-flush",
+      "filesystem": "ext4",
+      "seed": 109,
+      "boundary": "before-flush",
+      "acknowledged_operations": 16,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/ext4-09-before-flush/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data ext4 rw,noatime 0 0"
+      ],
+      "baseline_checkpoint_bytes": 0,
+      "acknowledged_state": {
+        "slot:13": [
+          117949578029,
+          1
+        ],
+        "slot:5": [
+          9365812696127690021,
+          3
+        ],
+        "slot:4": [
+          10330807777097823828,
+          4
+        ],
+        "slot:6": [
+          593117425267458902,
+          7
+        ],
+        "slot:0": [
+          12719418010447971408,
+          8
+        ],
+        "slot:12": [
+          17622558538538183084,
+          10
+        ],
+        "slot:14": [
+          7889300619099521998,
+          13
+        ],
+        "slot:9": [
+          284698464170153161,
+          14
+        ]
+      },
+      "acknowledged_sequence": 14,
+      "pending": [
+        "BEGIN",
+        "17",
+        "P",
+        "slot:0",
+        "3640591417425521312"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 12288,
+        "counts": {
+          "write": 101,
+          "flush": 66,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 26329088
+      },
+      "pre_recovery_archive_sha256": "b15ba587a1bf0666fe3995c038abb0e230cc3e2f5638a6a883e083220cdf6976",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 14,
+        "state": {
+          "slot:0": [
+            12719418010447971408,
+            8
+          ],
+          "slot:12": [
+            17622558538538183084,
+            10
+          ],
+          "slot:13": [
+            117949578029,
+            1
+          ],
+          "slot:14": [
+            7889300619099521998,
+            13
+          ],
+          "slot:4": [
+            10330807777097823828,
+            4
+          ],
+          "slot:5": [
+            9365812696127690021,
+            3
+          ],
+          "slot:6": [
+            593117425267458902,
+            7
+          ],
+          "slot:9": [
+            284698464170153161,
+            14
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data ext4 rw,noatime 0 0"
+        ]
+      }
+    },
+    {
+      "id": "ext4-10-after-flush",
+      "filesystem": "ext4",
+      "seed": 110,
+      "boundary": "after-flush",
+      "acknowledged_operations": 16,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/ext4-10-after-flush/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data ext4 rw,noatime 0 0"
+      ],
+      "baseline_checkpoint_bytes": 0,
+      "acknowledged_state": {
+        "slot:14": [
+          4324526242242814126,
+          14
+        ],
+        "slot:9": [
+          16148764113588667353,
+          2
+        ],
+        "slot:3": [
+          6555712660917197683,
+          9
+        ],
+        "slot:10": [
+          18405362277781794186,
+          11
+        ],
+        "slot:0": [
+          11295156413404070304,
+          6
+        ],
+        "slot:5": [
+          12291529813688428421,
+          10
+        ],
+        "slot:1": [
+          17102136483135214289,
+          12
+        ],
+        "slot:4": [
+          11019891257365253428,
+          13
+        ],
+        "slot:15": [
+          1581443718017872623,
+          15
+        ]
+      },
+      "acknowledged_sequence": 15,
+      "pending": [
+        "BEGIN",
+        "17",
+        "P",
+        "slot:10",
+        "11722041593961012682"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 0,
+        "counts": {
+          "write": 104,
+          "flush": 69,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 26357760
+      },
+      "pre_recovery_archive_sha256": "336fc2e5b0a1ff7428ebd5fe5ed9ce0725a0663658ce6bda46d2d86bb5d199f3",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 15,
+        "state": {
+          "slot:0": [
+            11295156413404070304,
+            6
+          ],
+          "slot:1": [
+            17102136483135214289,
+            12
+          ],
+          "slot:10": [
+            18405362277781794186,
+            11
+          ],
+          "slot:14": [
+            4324526242242814126,
+            14
+          ],
+          "slot:15": [
+            1581443718017872623,
+            15
+          ],
+          "slot:3": [
+            6555712660917197683,
+            9
+          ],
+          "slot:4": [
+            11019891257365253428,
+            13
+          ],
+          "slot:5": [
+            12291529813688428421,
+            10
+          ],
+          "slot:9": [
+            16148764113588667353,
+            2
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data ext4 rw,noatime 0 0"
+        ]
+      }
+    },
+    {
+      "id": "ext4-11-negative-flush",
+      "filesystem": "ext4",
+      "seed": 111,
+      "boundary": "ack",
+      "acknowledged_operations": 3,
+      "negative_control": true,
+      "status": "negative-control-detected",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/ext4-11-negative-flush/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data ext4 rw,noatime 0 0"
+      ],
+      "baseline_checkpoint_bytes": 0,
+      "acknowledged_state": {
+        "slot:15": [
+          120113593263,
+          1
+        ],
+        "slot:8": [
+          17301614124102735768,
+          2
+        ],
+        "slot:7": [
+          13242698763006819639,
+          3
+        ]
+      },
+      "acknowledged_sequence": 3,
+      "device_power_cut": {
+        "discarded_bytes": 159744,
+        "counts": {
+          "write": 36,
+          "flush": 20,
+          "fua": 0,
+          "ignored_flush": 15
+        },
+        "flushed_bytes": 25563136
+      },
+      "pre_recovery_archive_sha256": "d3260b142fd969db02466631dc6ce87d3b47e57499bc08e5f48612f7faa0ec6e",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 0,
+        "state": {},
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data ext4 rw,noatime 0 0"
+        ]
+      }
+    },
+    {
+      "id": "xfs-01-ack",
+      "filesystem": "xfs",
+      "seed": 101,
+      "boundary": "ack",
+      "acknowledged_operations": 6,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/xfs-01-ack/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+      ],
+      "baseline_checkpoint_bytes": 2097152,
+      "acknowledged_state": {
+        "slot:5": [
+          109291419941,
+          1
+        ],
+        "slot:7": [
+          11317850872968652727,
+          6
+        ],
+        "slot:13": [
+          6416548018613482861,
+          3
+        ],
+        "slot:14": [
+          3788927691027281118,
+          5
+        ]
+      },
+      "acknowledged_sequence": 6,
+      "device_power_cut": {
+        "discarded_bytes": 0,
+        "counts": {
+          "write": 88,
+          "flush": 23,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 69583360
+      },
+      "pre_recovery_archive_sha256": "eefa6897035fc9617673cfdd49451b11dad00d300ecfdcc14615a743d9779179",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 6,
+        "state": {
+          "slot:13": [
+            6416548018613482861,
+            3
+          ],
+          "slot:14": [
+            3788927691027281118,
+            5
+          ],
+          "slot:5": [
+            109291419941,
+            1
+          ],
+          "slot:7": [
+            11317850872968652727,
+            6
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+        ]
+      }
+    },
+    {
+      "id": "xfs-02-write",
+      "filesystem": "xfs",
+      "seed": 102,
+      "boundary": "write",
+      "acknowledged_operations": 6,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/xfs-02-write/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+      ],
+      "baseline_checkpoint_bytes": 2097152,
+      "acknowledged_state": {
+        "slot:6": [
+          17595323056555375446,
+          3
+        ],
+        "slot:0": [
+          5314529811308305568,
+          4
+        ],
+        "slot:9": [
+          2155044782532916761,
+          5
+        ]
+      },
+      "acknowledged_sequence": 6,
+      "pending": [
+        "BEGIN",
+        "7",
+        "P",
+        "slot:14",
+        "9982209959505490926"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 4096,
+        "counts": {
+          "write": 89,
+          "flush": 23,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 69583360
+      },
+      "pre_recovery_archive_sha256": "91b660ff2e5fa5cfe24b5accae6690aabe9e5e04fd08acf57cf17b052d09da7c",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 6,
+        "state": {
+          "slot:0": [
+            5314529811308305568,
+            4
+          ],
+          "slot:6": [
+            17595323056555375446,
+            3
+          ],
+          "slot:9": [
+            2155044782532916761,
+            5
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+        ]
+      }
+    },
+    {
+      "id": "xfs-03-before-flush",
+      "filesystem": "xfs",
+      "seed": 103,
+      "boundary": "before-flush",
+      "acknowledged_operations": 6,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/xfs-03-before-flush/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+      ],
+      "baseline_checkpoint_bytes": 2097152,
+      "acknowledged_state": {
+        "slot:4": [
+          15150564207202309556,
+          5
+        ],
+        "slot:15": [
+          8012362473434717567,
+          2
+        ],
+        "slot:5": [
+          13589037621184355461,
+          3
+        ],
+        "slot:12": [
+          11233207271225255036,
+          4
+        ]
+      },
+      "acknowledged_sequence": 5,
+      "pending": [
+        "BEGIN",
+        "7",
+        "P",
+        "slot:15",
+        "2936890223668063647"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 4096,
+        "counts": {
+          "write": 87,
+          "flush": 21,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 69578240
+      },
+      "pre_recovery_archive_sha256": "0ad5d316147b26f76c49c3bddf944fadade704167058c915b77a15ea1e1ffd1e",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 5,
+        "state": {
+          "slot:12": [
+            11233207271225255036,
+            4
+          ],
+          "slot:15": [
+            8012362473434717567,
+            2
+          ],
+          "slot:4": [
+            15150564207202309556,
+            5
+          ],
+          "slot:5": [
+            13589037621184355461,
+            3
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+        ]
+      }
+    },
+    {
+      "id": "xfs-04-after-flush",
+      "filesystem": "xfs",
+      "seed": 104,
+      "boundary": "after-flush",
+      "acknowledged_operations": 6,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/xfs-04-after-flush/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+      ],
+      "baseline_checkpoint_bytes": 2097152,
+      "acknowledged_state": {
+        "slot:8": [
+          8547721714859123496,
+          3
+        ],
+        "slot:12": [
+          9230806328355011164,
+          2
+        ],
+        "slot:14": [
+          8883330990174568318,
+          6
+        ],
+        "slot:4": [
+          6176465802163881332,
+          5
+        ]
+      },
+      "acknowledged_sequence": 6,
+      "pending": [
+        "BEGIN",
+        "7",
+        "P",
+        "slot:0",
+        "8517742531037218048"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 0,
+        "counts": {
+          "write": 89,
+          "flush": 24,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 69587456
+      },
+      "pre_recovery_archive_sha256": "3df3678d79411cb98f691099d695c0118a205e472a7fc51c053dc1aa92fb9976",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 6,
+        "state": {
+          "slot:12": [
+            9230806328355011164,
+            2
+          ],
+          "slot:14": [
+            8883330990174568318,
+            6
+          ],
+          "slot:4": [
+            6176465802163881332,
+            5
+          ],
+          "slot:8": [
+            8547721714859123496,
+            3
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+        ]
+      }
+    },
+    {
+      "id": "xfs-05-write",
+      "filesystem": "xfs",
+      "seed": 105,
+      "boundary": "write",
+      "acknowledged_operations": 10,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/xfs-05-write/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+      ],
+      "baseline_checkpoint_bytes": 2097152,
+      "acknowledged_state": {
+        "slot:9": [
+          113621547561,
+          1
+        ],
+        "slot:13": [
+          10383656373497245213,
+          2
+        ],
+        "slot:11": [
+          16136990412269440331,
+          4
+        ],
+        "slot:15": [
+          10229853414016280447,
+          6
+        ],
+        "slot:1": [
+          15308606750086159217,
+          7
+        ],
+        "slot:7": [
+          15192029995474925447,
+          8
+        ],
+        "slot:8": [
+          3804298867794710312,
+          9
+        ],
+        "slot:6": [
+          1468595190306267958,
+          10
+        ]
+      },
+      "acknowledged_sequence": 10,
+      "pending": [
+        "BEGIN",
+        "11",
+        "P",
+        "slot:0",
+        "6915870811568567408"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 4096,
+        "counts": {
+          "write": 103,
+          "flush": 39,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 69622272
+      },
+      "pre_recovery_archive_sha256": "44b2beb5471a0e42e844905967712c71a7be49a09ca90e108ffe3948dba1ed63",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 10,
+        "state": {
+          "slot:1": [
+            15308606750086159217,
+            7
+          ],
+          "slot:11": [
+            16136990412269440331,
+            4
+          ],
+          "slot:13": [
+            10383656373497245213,
+            2
+          ],
+          "slot:15": [
+            10229853414016280447,
+            6
+          ],
+          "slot:6": [
+            1468595190306267958,
+            10
+          ],
+          "slot:7": [
+            15192029995474925447,
+            8
+          ],
+          "slot:8": [
+            3804298867794710312,
+            9
+          ],
+          "slot:9": [
+            113621547561,
+            1
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+        ]
+      }
+    },
+    {
+      "id": "xfs-06-before-flush",
+      "filesystem": "xfs",
+      "seed": 106,
+      "boundary": "before-flush",
+      "acknowledged_operations": 10,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/xfs-06-before-flush/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+      ],
+      "baseline_checkpoint_bytes": 2097152,
+      "acknowledged_state": {
+        "slot:15": [
+          11536792326022566623,
+          2
+        ],
+        "slot:12": [
+          5766802627280108844,
+          4
+        ],
+        "slot:6": [
+          18070571710149989846,
+          5
+        ],
+        "slot:13": [
+          12964968268984975901,
+          9
+        ],
+        "slot:2": [
+          12447630740212253938,
+          7
+        ],
+        "slot:11": [
+          7456725635121533819,
+          8
+        ]
+      },
+      "acknowledged_sequence": 9,
+      "pending": [
+        "BEGIN",
+        "11",
+        "P",
+        "slot:9",
+        "135589012878703193"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 4096,
+        "counts": {
+          "write": 101,
+          "flush": 37,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 69618688
+      },
+      "pre_recovery_archive_sha256": "c78fbf604d08377ce4ef69f49bf27040bebe3712b976db61ad475387c5d7a5a7",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 9,
+        "state": {
+          "slot:11": [
+            7456725635121533819,
+            8
+          ],
+          "slot:12": [
+            5766802627280108844,
+            4
+          ],
+          "slot:13": [
+            12964968268984975901,
+            9
+          ],
+          "slot:15": [
+            11536792326022566623,
+            2
+          ],
+          "slot:2": [
+            12447630740212253938,
+            7
+          ],
+          "slot:6": [
+            18070571710149989846,
+            5
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+        ]
+      }
+    },
+    {
+      "id": "xfs-07-after-flush",
+      "filesystem": "xfs",
+      "seed": 107,
+      "boundary": "after-flush",
+      "acknowledged_operations": 10,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/xfs-07-after-flush/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+      ],
+      "baseline_checkpoint_bytes": 2097152,
+      "acknowledged_state": {
+        "slot:14": [
+          12689642336536626846,
+          1
+        ],
+        "slot:3": [
+          13857371622492841779,
+          8
+        ],
+        "slot:9": [
+          11912928579061316873,
+          3
+        ],
+        "slot:12": [
+          14026238926351455612,
+          5
+        ],
+        "slot:6": [
+          9018454538691957974,
+          6
+        ],
+        "slot:15": [
+          7679272831406628351,
+          7
+        ]
+      },
+      "acknowledged_sequence": 8,
+      "pending": [
+        "BEGIN",
+        "11",
+        "P",
+        "slot:13",
+        "2101902013416115389"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 0,
+        "counts": {
+          "write": 99,
+          "flush": 36,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 69616128
+      },
+      "pre_recovery_archive_sha256": "43b0df150ee13400a1da87a7f05d201e2827602828427f0eaa2d7950ba510ec5",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 8,
+        "state": {
+          "slot:12": [
+            14026238926351455612,
+            5
+          ],
+          "slot:14": [
+            12689642336536626846,
+            1
+          ],
+          "slot:15": [
+            7679272831406628351,
+            7
+          ],
+          "slot:3": [
+            13857371622492841779,
+            8
+          ],
+          "slot:6": [
+            9018454538691957974,
+            6
+          ],
+          "slot:9": [
+            11912928579061316873,
+            3
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+        ]
+      }
+    },
+    {
+      "id": "xfs-08-write",
+      "filesystem": "xfs",
+      "seed": 108,
+      "boundary": "write",
+      "acknowledged_operations": 16,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/xfs-08-write/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+      ],
+      "baseline_checkpoint_bytes": 2097152,
+      "acknowledged_state": {
+        "slot:12": [
+          1937824549115458316,
+          3
+        ],
+        "slot:1": [
+          671732612978156593,
+          5
+        ],
+        "slot:9": [
+          8423550389501017913,
+          6
+        ],
+        "slot:7": [
+          3860869994864365063,
+          7
+        ],
+        "slot:11": [
+          14850535001349429851,
+          8
+        ],
+        "slot:15": [
+          14824284701934226607,
+          9
+        ],
+        "slot:6": [
+          1011846599290398198,
+          12
+        ],
+        "slot:8": [
+          16736825770283130696,
+          11
+        ],
+        "slot:13": [
+          10027885836214754269,
+          14
+        ],
+        "slot:10": [
+          16499697823307959338,
+          15
+        ],
+        "slot:2": [
+          14730796898044337074,
+          16
+        ]
+      },
+      "acknowledged_sequence": 16,
+      "pending": [
+        "BEGIN",
+        "17",
+        "P",
+        "slot:5",
+        "3000308534849945733"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 4096,
+        "counts": {
+          "write": 127,
+          "flush": 67,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 69689856
+      },
+      "pre_recovery_archive_sha256": "194e46a5c6438e3f9b955044aff36076c76392a361dbf34bc9f174e0eea15075",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 16,
+        "state": {
+          "slot:1": [
+            671732612978156593,
+            5
+          ],
+          "slot:10": [
+            16499697823307959338,
+            15
+          ],
+          "slot:11": [
+            14850535001349429851,
+            8
+          ],
+          "slot:12": [
+            1937824549115458316,
+            3
+          ],
+          "slot:13": [
+            10027885836214754269,
+            14
+          ],
+          "slot:15": [
+            14824284701934226607,
+            9
+          ],
+          "slot:2": [
+            14730796898044337074,
+            16
+          ],
+          "slot:6": [
+            1011846599290398198,
+            12
+          ],
+          "slot:7": [
+            3860869994864365063,
+            7
+          ],
+          "slot:8": [
+            16736825770283130696,
+            11
+          ],
+          "slot:9": [
+            8423550389501017913,
+            6
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+        ]
+      }
+    },
+    {
+      "id": "xfs-09-before-flush",
+      "filesystem": "xfs",
+      "seed": 109,
+      "boundary": "before-flush",
+      "acknowledged_operations": 16,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/xfs-09-before-flush/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+      ],
+      "baseline_checkpoint_bytes": 2097152,
+      "acknowledged_state": {
+        "slot:13": [
+          117949578029,
+          1
+        ],
+        "slot:5": [
+          9365812696127690021,
+          3
+        ],
+        "slot:4": [
+          10330807777097823828,
+          4
+        ],
+        "slot:6": [
+          593117425267458902,
+          7
+        ],
+        "slot:0": [
+          12719418010447971408,
+          8
+        ],
+        "slot:12": [
+          17622558538538183084,
+          10
+        ],
+        "slot:14": [
+          7889300619099521998,
+          13
+        ],
+        "slot:9": [
+          284698464170153161,
+          14
+        ]
+      },
+      "acknowledged_sequence": 14,
+      "pending": [
+        "BEGIN",
+        "17",
+        "P",
+        "slot:0",
+        "3640591417425521312"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 4096,
+        "counts": {
+          "write": 123,
+          "flush": 63,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 69678080
+      },
+      "pre_recovery_archive_sha256": "567345f839f82095ee1134f3446a7a0a4386d453c6692996642ea801b5870ce9",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 14,
+        "state": {
+          "slot:0": [
+            12719418010447971408,
+            8
+          ],
+          "slot:12": [
+            17622558538538183084,
+            10
+          ],
+          "slot:13": [
+            117949578029,
+            1
+          ],
+          "slot:14": [
+            7889300619099521998,
+            13
+          ],
+          "slot:4": [
+            10330807777097823828,
+            4
+          ],
+          "slot:5": [
+            9365812696127690021,
+            3
+          ],
+          "slot:6": [
+            593117425267458902,
+            7
+          ],
+          "slot:9": [
+            284698464170153161,
+            14
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+        ]
+      }
+    },
+    {
+      "id": "xfs-10-after-flush",
+      "filesystem": "xfs",
+      "seed": 110,
+      "boundary": "after-flush",
+      "acknowledged_operations": 16,
+      "negative_control": false,
+      "status": "passed",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/xfs-10-after-flush/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+      ],
+      "baseline_checkpoint_bytes": 2097152,
+      "acknowledged_state": {
+        "slot:14": [
+          4324526242242814126,
+          14
+        ],
+        "slot:9": [
+          16148764113588667353,
+          2
+        ],
+        "slot:3": [
+          6555712660917197683,
+          9
+        ],
+        "slot:10": [
+          18405362277781794186,
+          11
+        ],
+        "slot:0": [
+          11295156413404070304,
+          6
+        ],
+        "slot:5": [
+          12291529813688428421,
+          10
+        ],
+        "slot:1": [
+          17102136483135214289,
+          12
+        ],
+        "slot:4": [
+          11019891257365253428,
+          13
+        ],
+        "slot:15": [
+          1581443718017872623,
+          15
+        ]
+      },
+      "acknowledged_sequence": 15,
+      "pending": [
+        "BEGIN",
+        "17",
+        "P",
+        "slot:10",
+        "11722041593961012682"
+      ],
+      "device_power_cut": {
+        "discarded_bytes": 0,
+        "counts": {
+          "write": 125,
+          "flush": 66,
+          "fua": 0,
+          "ignored_flush": 0
+        },
+        "flushed_bytes": 69688832
+      },
+      "pre_recovery_archive_sha256": "a078e0e08675100f5a1377a4ab79169c411e909c76c52cc864da9a8e0195d1b5",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 15,
+        "state": {
+          "slot:0": [
+            11295156413404070304,
+            6
+          ],
+          "slot:1": [
+            17102136483135214289,
+            12
+          ],
+          "slot:10": [
+            18405362277781794186,
+            11
+          ],
+          "slot:14": [
+            4324526242242814126,
+            14
+          ],
+          "slot:15": [
+            1581443718017872623,
+            15
+          ],
+          "slot:3": [
+            6555712660917197683,
+            9
+          ],
+          "slot:4": [
+            11019891257365253428,
+            13
+          ],
+          "slot:5": [
+            12291529813688428421,
+            10
+          ],
+          "slot:9": [
+            16148764113588667353,
+            2
+          ]
+        },
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+        ]
+      }
+    },
+    {
+      "id": "xfs-11-negative-flush",
+      "filesystem": "xfs",
+      "seed": 111,
+      "boundary": "ack",
+      "acknowledged_operations": 3,
+      "negative_control": true,
+      "status": "negative-control-detected",
+      "qemu_command": [
+        "qemu-system-aarch64",
+        "-machine",
+        "virt",
+        "-cpu",
+        "cortex-a72",
+        "-accel",
+        "tcg",
+        "-m",
+        "384",
+        "-smp",
+        "1",
+        "-nodefaults",
+        "-no-user-config",
+        "-nic",
+        "none",
+        "-display",
+        "none",
+        "-monitor",
+        "none",
+        "-serial",
+        "stdio",
+        "-no-reboot",
+        "-kernel",
+        "/app/guest/kernel",
+        "-initrd",
+        "/app/guest/initrd.gz",
+        "-append",
+        "console=ttyAMA0 rdinit=/init panic=-1 loglevel=4",
+        "-blockdev",
+        "{\"driver\": \"nbd\", \"server\": {\"type\": \"unix\", \"path\": \"/work/yali-3q46zv1t/xfs-11-negative-flush/disk.sock\"}, \"node-name\": \"data\", \"cache\": {\"direct\": false, \"no-flush\": false}}",
+        "-device",
+        "virtio-blk-device,drive=data,write-cache=on"
+      ],
+      "boot": "BOOT 6.1.0-54-arm64 aarch64",
+      "mount": [
+        "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+      ],
+      "baseline_checkpoint_bytes": 2097152,
+      "acknowledged_state": {
+        "slot:15": [
+          120113593263,
+          1
+        ],
+        "slot:8": [
+          17301614124102735768,
+          2
+        ],
+        "slot:7": [
+          13242698763006819639,
+          3
+        ]
+      },
+      "acknowledged_sequence": 3,
+      "device_power_cut": {
+        "discarded_bytes": 19968,
+        "counts": {
+          "write": 82,
+          "flush": 17,
+          "fua": 0,
+          "ignored_flush": 15
+        },
+        "flushed_bytes": 69535744
+      },
+      "pre_recovery_archive_sha256": "2e7cff2ee2fdef2ed4a0c9829bbfe24e2d8b65b5ce63071ef968cb0881d6d817",
+      "recovery": {
+        "status": "recovered",
+        "sequence": 0,
+        "state": {},
+        "boot": "BOOT 6.1.0-54-arm64 aarch64",
+        "mount": [
+          "/dev/vda /data xfs rw,noatime,attr2,inode64,logbufs=8,logbsize=32k,noquota 0 0"
+        ]
+      }
+    }
+  ],
+  "elapsed_seconds": 140.524,
+  "container_image_id": "sha256:3f64bf4b80a57f78674c369101f65c53fd4e8fa674b23dc00f370ee6ada56e7a",
+  "docker_daemon_arch": "arm64",
+  "architecture_emulation": false,
+  "container_limits": {
+    "capabilities": [],
+    "network": "none",
+    "read_only_root": true,
+    "uid": 1001,
+    "gid": 1001,
+    "memory": "2g",
+    "cpus": 2,
+    "pids": 128
+  }
+}

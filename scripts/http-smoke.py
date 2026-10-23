@@ -2,6 +2,7 @@
 
 Run `cargo build -p yalidb-server --locked` first. No credentials or user data are printed.
 """
+import http.client
 import json
 import os
 from pathlib import Path
@@ -85,7 +86,17 @@ def main():
             assert call(port, "/v1/get", {"key": "aw", "extra": True})[0] == 400
             assert call(port, "/v1/get", {"key": "aw"}, method="GET")[0] == 405
             assert call(port, "/missing", {})[0] == 404
-            assert call(port, "/v1/put", {"key": "aw", "value": "eA" * 100000})[0] == 413
+            # Require rejection from headers before uploading an oversized body.
+            with socket.create_connection(("127.0.0.1", port), timeout=3) as sock:
+                sock.sendall((
+                    f"POST /v1/put HTTP/1.1\r\nHost: 127.0.0.1:{port}\r\n"
+                    f"Authorization: Bearer {TOKEN}\r\nContent-Type: application/json\r\n"
+                    "Content-Length: 200000\r\n\r\n"
+                ).encode())
+                with http.client.HTTPResponse(sock) as response:
+                    response.begin()
+                    assert response.status == 413
+                    assert json.load(response) == {"error": "body_too_large"}
         finally:
             stop(process)
         process, port = start(database)

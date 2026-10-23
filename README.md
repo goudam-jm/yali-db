@@ -56,6 +56,7 @@ See the [wire API](docs/http-api.md) and [Python example](examples/python_client
 - [Operations and recovery](docs/operations.md)
 - [Production readiness](docs/production-readiness.md)
 - [Linux storage validation](docs/linux-validation.md)
+- [Disposable VM power-loss validation](docs/vm-power-loss-testing.md)
 - [Coverage-guided fuzzing](fuzz/README.md)
 - [Measured validation results](docs/validation/2026-10-23.md)
 - [Rust learning path](docs/learning/README.md)

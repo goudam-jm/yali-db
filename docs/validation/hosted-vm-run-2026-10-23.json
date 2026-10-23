@@ -1,0 +1,159 @@
+{
+  "conclusion": "success",
+  "databaseId": 39947533475,
+  "headSha": "12c10f05442e270d7403964f5f696495ebd9d42d",
+  "jobs": [
+    {
+      "completedAt": "2026-10-23T11:42:29Z",
+      "conclusion": "success",
+      "databaseId": 120393743473,
+      "name": "guest-power-loss (ubuntu-24.04-arm, linux/arm64, arm64)",
+      "startedAt": "2026-10-23T11:38:53Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-23T11:38:54Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-23T11:38:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:38:55Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-10-23T11:38:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:38:55Z",
+          "conclusion": "success",
+          "name": "Run python3 -m unittest discover -s scripts/vm-powercut -p 'test_*.py'",
+          "number": 3,
+          "startedAt": "2026-10-23T11:38:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:40:05Z",
+          "conclusion": "success",
+          "name": "Run docker build --platform 'linux/arm64' -t yalidb-vm-powercut:ci -f scripts/vm-powercut/Dockerfile .",
+          "number": 4,
+          "startedAt": "2026-10-23T11:38:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:42:26Z",
+          "conclusion": "success",
+          "name": "Run python3 scripts/run-vm-powercut.py --platform 'linux/arm64' --image yalidb-vm-powercut:ci --cases 10 --output validation-results/vm-powercut-arm64",
+          "number": 5,
+          "startedAt": "2026-10-23T11:40:05Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:42:27Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 6,
+          "startedAt": "2026-10-23T11:42:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:42:28Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 12,
+          "startedAt": "2026-10-23T11:42:27Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:42:28Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 13,
+          "startedAt": "2026-10-23T11:42:28Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/goudam-jm/yali-db/actions/runs/39947533475/job/120393743473"
+    },
+    {
+      "completedAt": "2026-10-23T11:46:03Z",
+      "conclusion": "success",
+      "databaseId": 120393743862,
+      "name": "guest-power-loss (ubuntu-24.04, linux/amd64, amd64)",
+      "startedAt": "2026-10-23T11:38:51Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-23T11:38:52Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-23T11:38:52Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:38:53Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-10-23T11:38:52Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:38:53Z",
+          "conclusion": "success",
+          "name": "Run python3 -m unittest discover -s scripts/vm-powercut -p 'test_*.py'",
+          "number": 3,
+          "startedAt": "2026-10-23T11:38:53Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:40:43Z",
+          "conclusion": "success",
+          "name": "Run docker build --platform 'linux/amd64' -t yalidb-vm-powercut:ci -f scripts/vm-powercut/Dockerfile .",
+          "number": 4,
+          "startedAt": "2026-10-23T11:38:53Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:46:01Z",
+          "conclusion": "success",
+          "name": "Run python3 scripts/run-vm-powercut.py --platform 'linux/amd64' --image yalidb-vm-powercut:ci --cases 10 --output validation-results/vm-powercut-amd64",
+          "number": 5,
+          "startedAt": "2026-10-23T11:40:43Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:46:02Z",
+          "conclusion": "success",
+          "name": "Run actions/upload-artifact@v4",
+          "number": 6,
+          "startedAt": "2026-10-23T11:46:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:46:02Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 12,
+          "startedAt": "2026-10-23T11:46:02Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:46:02Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 13,
+          "startedAt": "2026-10-23T11:46:02Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/goudam-jm/yali-db/actions/runs/39947533475/job/120393743862"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/goudam-jm/yali-db/actions/runs/39947533475"
+}

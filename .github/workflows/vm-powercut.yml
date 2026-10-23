@@ -1,0 +1,49 @@
+name: Disposable VM power cuts
+on:
+  push:
+    paths:
+      - 'scripts/vm-powercut/**'
+      - 'scripts/run-vm-powercut.py'
+      - 'yalidb-core/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - '.github/workflows/vm-powercut.yml'
+  pull_request:
+    paths:
+      - 'scripts/vm-powercut/**'
+      - 'scripts/run-vm-powercut.py'
+      - 'yalidb-core/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - '.github/workflows/vm-powercut.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: vm-powercut-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  guest-power-loss:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            platform: linux/amd64
+            arch: amd64
+          - runner: ubuntu-24.04-arm
+            platform: linux/arm64
+            arch: arm64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m unittest discover -s scripts/vm-powercut -p 'test_*.py'
+      - run: docker build --platform '${{ matrix.platform }}' -t yalidb-vm-powercut:ci -f scripts/vm-powercut/Dockerfile .
+      - run: python3 scripts/run-vm-powercut.py --platform '${{ matrix.platform }}' --image yalidb-vm-powercut:ci --cases 10 --output validation-results/vm-powercut-${{ matrix.arch }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: vm-powercut-${{ matrix.arch }}
+          path: validation-results/
+          retention-days: 14

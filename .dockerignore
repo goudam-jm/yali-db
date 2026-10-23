@@ -5,3 +5,5 @@ fuzz/artifacts
 validation-results
 .git
 .DS_Store
+
+**/__pycache__
