@@ -38,3 +38,16 @@ Hosted totals: **40 normal recoveries passed, four negative controls detected, 4
 All 44 downloaded hosted pre-recovery disk archives matched their recorded SHA-256 checksums. Raw artifacts are under ignored `validation-results/hosted-vm-39947533475/` and retained by GitHub for 14 days. Download/retain them before expiration for later forensic review.
 
 The same implementation commit also passed the [four-job Rust stable/MSRV matrix](https://github.com/goudam-jm/yali-db/actions/runs/39947533365) and the existing [Linux storage/fuzz regression workflow](https://github.com/goudam-jm/yali-db/actions/runs/39947533403). No engine code or disk format changed in this increment. Subsequent evidence-only documentation changes do not alter the tested source fingerprint.
+
+## PR #1 ponytail review and fixes
+
+Review used upstream [ponytail-review](https://github.com/DietrichGebert/ponytail/blob/09c434ab73ca43761c5d8b0c5d341926c2fba710/skills/ponytail-review/SKILL.md) at revision `09c434ab73ca43761c5d8b0c5d341926c2fba710`. Expected load is one bounded controller per CI job, one guest and one block-service connection at a time. Review traced the guest, protocol, oracle, archive and cleanup paths; it did not constitute independent physical-device qualification.
+
+Two reproduced bugs were fixed before merge:
+
+- A queued write with force-unit-access could resume after device power removal and persist 512 bytes. Disk reads/writes/flushes now check power state under the same lock used by the cut. A deterministic thread-interleaving regression verifies no late persistence.
+- Output directories such as `run.one` shared the sibling log path `run.log`. If that file existed, failed log opening could make cleanup move the unrelated file. Controller output now uses a private anonymous temporary file; tests preserve the sibling on success and guest failure and verify volume cleanup when saving the report log fails.
+
+The recovery comparison was also isolated for direct tests of wrong values, wrong versions, missing acknowledged keys, forbidden extra keys and incompatible sequence/state combinations. Eight focused tests passed. The race and log regressions were run against the old implementation and failed as intended.
+
+The [post-review local ARM64 report](vm-powercut-pr1-review-arm64-2026-10-23.json) supersedes the earlier local source for merge validation: **20 normal recoveries and two negative controls passed**, in 68.535 seconds, source fingerprint `c29b3aadfe1f25cb104d60932d47afa4163282d3eb31b7179dd6e5129280ec85`. No database engine or format changed. Earlier hosted reports above remain historical evidence for their recorded source; the corrected revision must pass native ARM64/x86-64 VM jobs and the other [PR checks](https://github.com/goudam-jm/yali-db/pull/1/checks) before merge. Corrected hosted logs and crash images are retained as CI artifacts.

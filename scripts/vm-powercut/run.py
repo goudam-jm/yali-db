@@ -90,6 +90,10 @@ def apply(state, sequence, operation, key, value):
     return state, sequence
 
 
+def recovery_matches(recovered, allowed):
+    return recovered['status'] == 'recovered' and (recovered['state'], recovered['sequence']) in allowed
+
+
 def recover(image, socket_dir, directory, filesystem):
     with (directory / 'recovery-blocks.jsonl').open('w') as trace:
         disk = Disk(image, socket_dir / 'recover.sock', trace, create=False); disk.serve()
@@ -171,7 +175,7 @@ def scenario(root, output, filesystem, number, boundary, acknowledged, negative)
                 row['pre_recovery_archive_sha256'] = hashlib.file_digest(archive, 'sha256').hexdigest()
             recovered = recover(image, work, directory, filesystem)
             row['recovery'] = recovered
-            matches = recovered['status'] == 'recovered' and (recovered['state'], recovered['sequence']) in allowed
+            matches = recovery_matches(recovered, allowed)
             if negative:
                 assert row['device_power_cut']['counts']['ignored_flush'] > 0
                 assert row['device_power_cut']['discarded_bytes'] > 0

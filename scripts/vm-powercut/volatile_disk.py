@@ -57,33 +57,39 @@ class Disk:
             self.trace.write(json.dumps(row) + '\n'); self.trace.flush()
 
     def read(self, offset, length):
-        data = bytearray(os.pread(self.fd, length, offset))
-        for relative in range(0, length, SECTOR):
-            block = self.dirty.get(offset + relative)
-            if block is not None: data[relative:relative + SECTOR] = block
-        return bytes(data)
+        with self.lock:
+            if self.stopped.is_set(): raise EOFError("virtual device power removed")
+            data = bytearray(os.pread(self.fd, length, offset))
+            for relative in range(0, length, SECTOR):
+                block = self.dirty.get(offset + relative)
+                if block is not None: data[relative:relative + SECTOR] = block
+            return bytes(data)
 
     def write(self, offset, data):
-        for relative in range(0, len(data), SECTOR):
-            self.dirty[offset + relative] = data[relative:relative + SECTOR]
-        assert len(self.dirty) * SECTOR <= MAX_DIRTY, 'virtual disk cache budget exceeded'
-        self.counts['write'] += 1
+        with self.lock:
+            if self.stopped.is_set(): raise EOFError("virtual device power removed")
+            for relative in range(0, len(data), SECTOR):
+                self.dirty[offset + relative] = data[relative:relative + SECTOR]
+            assert len(self.dirty) * SECTOR <= MAX_DIRTY, 'virtual disk cache budget exceeded'
+            self.counts['write'] += 1
 
     def flush(self):
-        if self.ignore_flush:
-            self.counts['ignored_flush'] += 1
-            return
-        # Merge adjacent sectors to avoid a syscall per sector during filesystem creation.
-        start, chunk = None, bytearray()
-        for offset, data in sorted(self.dirty.items()):
-            if start is not None and offset != start + len(chunk):
-                self._persist(start, chunk); start, chunk = None, bytearray()
-            if start is None: start = offset
-            chunk.extend(data)
-        if start is not None: self._persist(start, chunk)
-        os.fsync(self.fd)
-        self.flushed_bytes += len(self.dirty) * SECTOR
-        self.dirty.clear()
+        with self.lock:
+            if self.stopped.is_set(): raise EOFError("virtual device power removed")
+            if self.ignore_flush:
+                self.counts['ignored_flush'] += 1
+                return
+            # Merge adjacent sectors to avoid a syscall per sector during filesystem creation.
+            start, chunk = None, bytearray()
+            for offset, data in sorted(self.dirty.items()):
+                if start is not None and offset != start + len(chunk):
+                    self._persist(start, chunk); start, chunk = None, bytearray()
+                if start is None: start = offset
+                chunk.extend(data)
+            if start is not None: self._persist(start, chunk)
+            os.fsync(self.fd)
+            self.flushed_bytes += len(self.dirty) * SECTOR
+            self.dirty.clear()
 
     def _persist(self, offset, data):
         position = 0

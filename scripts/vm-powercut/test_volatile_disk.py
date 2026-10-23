@@ -3,9 +3,12 @@ import io
 import os
 import socket
 import struct
+import threading
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
+import volatile_disk
 from volatile_disk import Disk, receive
 
 
@@ -66,6 +69,36 @@ class CacheTests(unittest.TestCase):
                 self.assertEqual(disk.power_cut()['discarded_bytes'], 512)
                 self.assertEqual(client.recv(16), b'')
             with image.open('rb') as stream: self.assertEqual(stream.read(512), bytes(512))
+
+    def test_queued_fua_cannot_persist_after_power_removal(self):
+        with tempfile.TemporaryDirectory() as folder:
+            image = Path(folder) / 'fresh.raw'
+            disk = Disk(image, Path(folder) / 'socket', io.StringIO()); disk.serve()
+            payload_read, resume = threading.Event(), threading.Event()
+            original_receive = volatile_disk.receive
+            outcome = []
+            def delayed_receive(client, length):
+                data = original_receive(client, length)
+                if length == 512:
+                    payload_read.set()
+                    if not resume.wait(5): raise TimeoutError('test failed to release queued payload')
+                return data
+            def cut():
+                outcome.append(disk.power_cut())
+            with patch.object(volatile_disk, 'receive', delayed_receive), socket.socket(socket.AF_UNIX) as client:
+                client.connect(str(Path(folder) / 'socket')); receive(client, 152)
+                client.sendall(struct.pack('>IHHQQI', 0x25609513, 1, 1, 46, 0, 512) + b'z' * 512)
+                self.assertTrue(payload_read.wait(2))
+                thread = threading.Thread(target=cut); thread.start()
+                try:
+                    self.assertTrue(disk.stopped.wait(2))
+                finally:
+                    resume.set(); thread.join(5)
+                self.assertFalse(thread.is_alive())
+                self.assertEqual(outcome[0]['flushed_bytes'], 0)
+                self.assertEqual(disk.dirty, {})
+            with image.open('rb') as stream: self.assertEqual(stream.read(512), bytes(512))
+            with self.assertRaises(EOFError): disk.flush()
 
     def test_refuses_existing_image(self):
         with tempfile.TemporaryDirectory() as folder:

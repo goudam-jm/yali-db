@@ -10,7 +10,7 @@ The guest root filesystem is an initramfs. Its **sole** block device `/dev/vda` 
 
 The virtual disk is a test-only NBD server over a private Unix socket. Writes enter a bounded volatile sector map; reads see pending writes. Guest FLUSH and FUA persist through `pwrite` and `fsync` before acknowledgment. A cut discards pending sectors instead of letting QEMU termination drain its cache. Merely killing QEMU with an ordinary file-backed writeback disk would leave host page-cache contents alive; this backend makes the chosen volatile-device boundary explicit.
 
-The backend's bounded protocol subset supports read/write/flush/FUA/disconnect and rejects unsupported commands. Independent tests verify overlapping writes, flush durability, FUA on the wire, lost unflushed data, boundary blocking and refusal to overwrite an existing image. It is a validation oracle, not a production NBD implementation.
+The backend's bounded protocol subset supports read/write/flush/FUA/disconnect and rejects unsupported commands. Independent tests verify overlapping writes, flush durability, FUA on the wire, lost unflushed data, queued writes racing with power removal, boundary blocking and refusal to overwrite an existing image. Controller tests also check log ownership/cleanup and recovery rejection when values or versions change without a matching sequence change. It is a validation oracle, not a production NBD implementation.
 
 ## Run
 
