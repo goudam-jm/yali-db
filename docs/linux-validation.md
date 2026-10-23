@@ -30,7 +30,7 @@ Reports contain kernel/toolchain, mount information, source and fixture fingerpr
 
 `.github/workflows/storage-and-fuzz.yml` configures native `ubuntu-24.04` x86-64 and `ubuntu-24.04-arm` ARM64 jobs, each using the restricted managed-volume runner. It uploads results even on failure and bounds job duration. Runner labels follow [GitHub's hosted-runner reference](https://docs.github.com/en/actions/reference/runners/github-hosted-runners).
 
-A configured workflow is not evidence of an executed hosted run. This folder currently has no Git checkout/remote, so hosted execution requires the owner to identify/publish the target repository first. The ordinary CI workflow additionally tests all core features and the declared minimum Rust version.
+The project is hosted at [goudam-jm/yali-db](https://github.com/goudam-jm/yali-db). Native ARM64 and x86-64 storage jobs have passed; see the [hosted results](validation/2026-10-23.md#hosted-validation-follow-up). The ordinary CI workflow additionally tests all core features and the declared minimum Rust version. Hosted runners record their own mount options; successful process recovery does not certify their storage for power-loss durability.
 
 ## Additional filesystems and device failures
 

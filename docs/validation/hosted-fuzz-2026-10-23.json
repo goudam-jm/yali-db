@@ -1,0 +1,188 @@
+[
+  {
+    "status": "passed",
+    "source_sha256": "ef5095ee85e3b3ffce612c59ad0c0a64a8b3bce70e87ef794fc22898538dd330",
+    "machine": "x86_64",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "nightly": "nightly-2026-10-22",
+    "cargo_fuzz": "cargo-fuzz 0.13.2",
+    "rust": "rustc 1.101.0-nightly (1a2c4797e 2026-10-21)",
+    "sanitizer": "address",
+    "build_std": true,
+    "seconds_per_target": 300,
+    "seed": 20261023,
+    "targets": [
+      {
+        "target": "decode",
+        "status": "passed",
+        "exit_code": 0,
+        "wall_seconds": 338.502,
+        "stats": {
+          "number_of_executed_units": 18755366,
+          "average_exec_per_sec": 62310,
+          "new_units_added": 572,
+          "slowest_unit_time_sec": 0,
+          "peak_rss_mb": 633
+        },
+        "executions": 18755366,
+        "fuzz_seconds": 301,
+        "coverage_counters": 288,
+        "corpus_before_minimization": {
+          "files": 108,
+          "bytes": 420700
+        },
+        "command": [
+          "cargo",
+          "+nightly-2026-10-22",
+          "fuzz",
+          "run",
+          "--build-std",
+          "--fuzz-dir",
+          "/home/runner/work/yali-db/yali-db/fuzz",
+          "decode",
+          "/home/runner/work/yali-db/yali-db/fuzz/corpus/decode",
+          "--",
+          "-max_total_time=300",
+          "-max_len=131072",
+          "-rss_limit_mb=1024",
+          "-timeout=10",
+          "-seed=20261023",
+          "-print_final_stats=1",
+          "-artifact_prefix=/home/runner/work/yali-db/yali-db/validation-results/fuzz-decode/decode/artifacts/"
+        ],
+        "minimization_exit_code": 0,
+        "corpus_after_minimization": {
+          "files": 90,
+          "bytes": 419679
+        },
+        "artifact_count": 0
+      }
+    ],
+    "ci_sha": "f0011b8a9faf97d325363fc5d668e9e938f493b4",
+    "run_url": "https://github.com/goudam-jm/yali-db/actions/runs/39944068524"
+  },
+  {
+    "status": "passed",
+    "source_sha256": "ef5095ee85e3b3ffce612c59ad0c0a64a8b3bce70e87ef794fc22898538dd330",
+    "machine": "x86_64",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "nightly": "nightly-2026-10-22",
+    "cargo_fuzz": "cargo-fuzz 0.13.2",
+    "rust": "rustc 1.101.0-nightly (1a2c4797e 2026-10-21)",
+    "sanitizer": "address",
+    "build_std": true,
+    "seconds_per_target": 300,
+    "seed": 20261023,
+    "targets": [
+      {
+        "target": "recovery",
+        "status": "passed",
+        "exit_code": 0,
+        "wall_seconds": 342.661,
+        "stats": {
+          "number_of_executed_units": 497082,
+          "average_exec_per_sec": 1651,
+          "new_units_added": 1097,
+          "slowest_unit_time_sec": 0,
+          "peak_rss_mb": 530
+        },
+        "executions": 497082,
+        "fuzz_seconds": 301,
+        "coverage_counters": 775,
+        "corpus_before_minimization": {
+          "files": 288,
+          "bytes": 546439
+        },
+        "command": [
+          "cargo",
+          "+nightly-2026-10-22",
+          "fuzz",
+          "run",
+          "--build-std",
+          "--fuzz-dir",
+          "/home/runner/work/yali-db/yali-db/fuzz",
+          "recovery",
+          "/home/runner/work/yali-db/yali-db/fuzz/corpus/recovery",
+          "--",
+          "-max_total_time=300",
+          "-max_len=131072",
+          "-rss_limit_mb=1024",
+          "-timeout=10",
+          "-seed=20261023",
+          "-print_final_stats=1",
+          "-artifact_prefix=/home/runner/work/yali-db/yali-db/validation-results/fuzz-recovery/recovery/artifacts/"
+        ],
+        "minimization_exit_code": 0,
+        "corpus_after_minimization": {
+          "files": 213,
+          "bytes": 235782
+        },
+        "artifact_count": 0
+      }
+    ],
+    "ci_sha": "f0011b8a9faf97d325363fc5d668e9e938f493b4",
+    "run_url": "https://github.com/goudam-jm/yali-db/actions/runs/39944068524"
+  },
+  {
+    "status": "passed",
+    "source_sha256": "ef5095ee85e3b3ffce612c59ad0c0a64a8b3bce70e87ef794fc22898538dd330",
+    "machine": "x86_64",
+    "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+    "nightly": "nightly-2026-10-22",
+    "cargo_fuzz": "cargo-fuzz 0.13.2",
+    "rust": "rustc 1.101.0-nightly (1a2c4797e 2026-10-21)",
+    "sanitizer": "address",
+    "build_std": true,
+    "seconds_per_target": 300,
+    "seed": 20261023,
+    "targets": [
+      {
+        "target": "state",
+        "status": "passed",
+        "exit_code": 0,
+        "wall_seconds": 353.342,
+        "stats": {
+          "number_of_executed_units": 663523,
+          "average_exec_per_sec": 2204,
+          "new_units_added": 1235,
+          "slowest_unit_time_sec": 0,
+          "peak_rss_mb": 551
+        },
+        "executions": 663523,
+        "fuzz_seconds": 301,
+        "coverage_counters": 713,
+        "corpus_before_minimization": {
+          "files": 363,
+          "bytes": 265762
+        },
+        "command": [
+          "cargo",
+          "+nightly-2026-10-22",
+          "fuzz",
+          "run",
+          "--build-std",
+          "--fuzz-dir",
+          "/home/runner/work/yali-db/yali-db/fuzz",
+          "state",
+          "/home/runner/work/yali-db/yali-db/fuzz/corpus/state",
+          "--",
+          "-max_total_time=300",
+          "-max_len=131072",
+          "-rss_limit_mb=1024",
+          "-timeout=10",
+          "-seed=20261023",
+          "-print_final_stats=1",
+          "-artifact_prefix=/home/runner/work/yali-db/yali-db/validation-results/fuzz-state/state/artifacts/"
+        ],
+        "minimization_exit_code": 0,
+        "corpus_after_minimization": {
+          "files": 233,
+          "bytes": 146417
+        },
+        "artifact_count": 0
+      }
+    ],
+    "ci_sha": "f0011b8a9faf97d325363fc5d668e9e938f493b4",
+    "run_url": "https://github.com/goudam-jm/yali-db/actions/runs/39944068524"
+  }
+]

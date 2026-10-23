@@ -1,0 +1,533 @@
+{
+  "conclusion": "success",
+  "databaseId": 39944032192,
+  "headSha": "f0011b8a9faf97d325363fc5d668e9e938f493b4",
+  "jobs": [
+    {
+      "completedAt": "2026-10-23T11:09:46Z",
+      "conclusion": "success",
+      "databaseId": 120382164714,
+      "name": "checks (macos-latest, stable)",
+      "startedAt": "2026-10-23T11:08:51Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-23T11:08:53Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-23T11:08:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:08:55Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-10-23T11:08:53Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:04Z",
+          "conclusion": "success",
+          "name": "Run dtolnay/rust-toolchain@master",
+          "number": 3,
+          "startedAt": "2026-10-23T11:08:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:04Z",
+          "conclusion": "success",
+          "name": "Run cargo fmt --all --check",
+          "number": 4,
+          "startedAt": "2026-10-23T11:09:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:20Z",
+          "conclusion": "success",
+          "name": "Run cargo clippy --workspace --all-targets --all-features --locked -- -D warnings",
+          "number": 5,
+          "startedAt": "2026-10-23T11:09:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:34Z",
+          "conclusion": "success",
+          "name": "Run cargo test --workspace --all-features --locked",
+          "number": 6,
+          "startedAt": "2026-10-23T11:09:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:35Z",
+          "conclusion": "success",
+          "name": "Run cargo doc --workspace --no-deps --locked",
+          "number": 7,
+          "startedAt": "2026-10-23T11:09:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:37Z",
+          "conclusion": "success",
+          "name": "Run cargo build -p yalidb-server --locked",
+          "number": 8,
+          "startedAt": "2026-10-23T11:09:35Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:38Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4",
+          "number": 9,
+          "startedAt": "2026-10-23T11:09:37Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:39Z",
+          "conclusion": "success",
+          "name": "Run python3 scripts/http-smoke.py",
+          "number": 10,
+          "startedAt": "2026-10-23T11:09:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:42Z",
+          "conclusion": "success",
+          "name": "Run python3 scripts/http-hardening.py",
+          "number": 11,
+          "startedAt": "2026-10-23T11:09:39Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:42Z",
+          "conclusion": "success",
+          "name": "Run python3 scripts/http-interop.py",
+          "number": 12,
+          "startedAt": "2026-10-23T11:09:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:42Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4",
+          "number": 23,
+          "startedAt": "2026-10-23T11:09:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:43Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 24,
+          "startedAt": "2026-10-23T11:09:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:43Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 25,
+          "startedAt": "2026-10-23T11:09:43Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/goudam-jm/yali-db/actions/runs/39944032192/job/120382164714"
+    },
+    {
+      "completedAt": "2026-10-23T11:09:19Z",
+      "conclusion": "success",
+      "databaseId": 120382165025,
+      "name": "checks (ubuntu-latest, stable)",
+      "startedAt": "2026-10-23T11:08:50Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-23T11:08:51Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-23T11:08:50Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:08:51Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-10-23T11:08:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:08:59Z",
+          "conclusion": "success",
+          "name": "Run dtolnay/rust-toolchain@master",
+          "number": 3,
+          "startedAt": "2026-10-23T11:08:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:08:59Z",
+          "conclusion": "success",
+          "name": "Run cargo fmt --all --check",
+          "number": 4,
+          "startedAt": "2026-10-23T11:08:59Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:04Z",
+          "conclusion": "success",
+          "name": "Run cargo clippy --workspace --all-targets --all-features --locked -- -D warnings",
+          "number": 5,
+          "startedAt": "2026-10-23T11:08:59Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:11Z",
+          "conclusion": "success",
+          "name": "Run cargo test --workspace --all-features --locked",
+          "number": 6,
+          "startedAt": "2026-10-23T11:09:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:11Z",
+          "conclusion": "success",
+          "name": "Run cargo doc --workspace --no-deps --locked",
+          "number": 7,
+          "startedAt": "2026-10-23T11:09:11Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:12Z",
+          "conclusion": "success",
+          "name": "Run cargo build -p yalidb-server --locked",
+          "number": 8,
+          "startedAt": "2026-10-23T11:09:11Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:14Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4",
+          "number": 9,
+          "startedAt": "2026-10-23T11:09:12Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:14Z",
+          "conclusion": "success",
+          "name": "Run python3 scripts/http-smoke.py",
+          "number": 10,
+          "startedAt": "2026-10-23T11:09:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:16Z",
+          "conclusion": "success",
+          "name": "Run python3 scripts/http-hardening.py",
+          "number": 11,
+          "startedAt": "2026-10-23T11:09:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:17Z",
+          "conclusion": "success",
+          "name": "Run python3 scripts/http-interop.py",
+          "number": 12,
+          "startedAt": "2026-10-23T11:09:16Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:17Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4",
+          "number": 23,
+          "startedAt": "2026-10-23T11:09:17Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:17Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 24,
+          "startedAt": "2026-10-23T11:09:17Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:17Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 25,
+          "startedAt": "2026-10-23T11:09:17Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/goudam-jm/yali-db/actions/runs/39944032192/job/120382165025"
+    },
+    {
+      "completedAt": "2026-10-23T11:09:52Z",
+      "conclusion": "success",
+      "databaseId": 120382165077,
+      "name": "checks (macos-latest, 1.89.0)",
+      "startedAt": "2026-10-23T11:08:50Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-23T11:08:52Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-23T11:08:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:08:54Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-10-23T11:08:52Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:05Z",
+          "conclusion": "success",
+          "name": "Run dtolnay/rust-toolchain@master",
+          "number": 3,
+          "startedAt": "2026-10-23T11:08:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:06Z",
+          "conclusion": "success",
+          "name": "Run cargo fmt --all --check",
+          "number": 4,
+          "startedAt": "2026-10-23T11:09:05Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:25Z",
+          "conclusion": "success",
+          "name": "Run cargo clippy --workspace --all-targets --all-features --locked -- -D warnings",
+          "number": 5,
+          "startedAt": "2026-10-23T11:09:06Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:40Z",
+          "conclusion": "success",
+          "name": "Run cargo test --workspace --all-features --locked",
+          "number": 6,
+          "startedAt": "2026-10-23T11:09:25Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:42Z",
+          "conclusion": "success",
+          "name": "Run cargo doc --workspace --no-deps --locked",
+          "number": 7,
+          "startedAt": "2026-10-23T11:09:40Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:43Z",
+          "conclusion": "success",
+          "name": "Run cargo build -p yalidb-server --locked",
+          "number": 8,
+          "startedAt": "2026-10-23T11:09:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:45Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4",
+          "number": 9,
+          "startedAt": "2026-10-23T11:09:43Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:46Z",
+          "conclusion": "success",
+          "name": "Run python3 scripts/http-smoke.py",
+          "number": 10,
+          "startedAt": "2026-10-23T11:09:45Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:48Z",
+          "conclusion": "success",
+          "name": "Run python3 scripts/http-hardening.py",
+          "number": 11,
+          "startedAt": "2026-10-23T11:09:46Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:49Z",
+          "conclusion": "success",
+          "name": "Run python3 scripts/http-interop.py",
+          "number": 12,
+          "startedAt": "2026-10-23T11:09:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:49Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4",
+          "number": 23,
+          "startedAt": "2026-10-23T11:09:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:50Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 24,
+          "startedAt": "2026-10-23T11:09:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:51Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 25,
+          "startedAt": "2026-10-23T11:09:50Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/goudam-jm/yali-db/actions/runs/39944032192/job/120382165077"
+    },
+    {
+      "completedAt": "2026-10-23T11:09:23Z",
+      "conclusion": "success",
+      "databaseId": 120382165278,
+      "name": "checks (ubuntu-latest, 1.89.0)",
+      "startedAt": "2026-10-23T11:08:50Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-23T11:08:51Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-23T11:08:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:08:52Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@v4",
+          "number": 2,
+          "startedAt": "2026-10-23T11:08:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:00Z",
+          "conclusion": "success",
+          "name": "Run dtolnay/rust-toolchain@master",
+          "number": 3,
+          "startedAt": "2026-10-23T11:08:52Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:00Z",
+          "conclusion": "success",
+          "name": "Run cargo fmt --all --check",
+          "number": 4,
+          "startedAt": "2026-10-23T11:09:00Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:08Z",
+          "conclusion": "success",
+          "name": "Run cargo clippy --workspace --all-targets --all-features --locked -- -D warnings",
+          "number": 5,
+          "startedAt": "2026-10-23T11:09:00Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:16Z",
+          "conclusion": "success",
+          "name": "Run cargo test --workspace --all-features --locked",
+          "number": 6,
+          "startedAt": "2026-10-23T11:09:08Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:17Z",
+          "conclusion": "success",
+          "name": "Run cargo doc --workspace --no-deps --locked",
+          "number": 7,
+          "startedAt": "2026-10-23T11:09:16Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:18Z",
+          "conclusion": "success",
+          "name": "Run cargo build -p yalidb-server --locked",
+          "number": 8,
+          "startedAt": "2026-10-23T11:09:17Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:18Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@v4",
+          "number": 9,
+          "startedAt": "2026-10-23T11:09:18Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:19Z",
+          "conclusion": "success",
+          "name": "Run python3 scripts/http-smoke.py",
+          "number": 10,
+          "startedAt": "2026-10-23T11:09:18Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:21Z",
+          "conclusion": "success",
+          "name": "Run python3 scripts/http-hardening.py",
+          "number": 11,
+          "startedAt": "2026-10-23T11:09:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:21Z",
+          "conclusion": "success",
+          "name": "Run python3 scripts/http-interop.py",
+          "number": 12,
+          "startedAt": "2026-10-23T11:09:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:21Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@v4",
+          "number": 23,
+          "startedAt": "2026-10-23T11:09:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:21Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@v4",
+          "number": 24,
+          "startedAt": "2026-10-23T11:09:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-23T11:09:21Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 25,
+          "startedAt": "2026-10-23T11:09:21Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/goudam-jm/yali-db/actions/runs/39944032192/job/120382165278"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/goudam-jm/yali-db/actions/runs/39944032192"
+}

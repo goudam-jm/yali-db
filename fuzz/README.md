@@ -28,6 +28,6 @@ If a campaign finds a crash, timeout or sanitizer issue, retain its artifact and
 
 ## CI budgets
 
-The storage/fuzz workflow runs a 60-second campaign per target on push/PR, saves/restores grown corpora and uploads logs/findings/minimized corpora on completion. Manual `workflow_dispatch` defaults to 1,800 seconds per target, with a hard maximum of 1,800 in that workflow and a job timeout. No recurring paid schedule is enabled implicitly. A repository/remote must exist before hosted jobs can actually run.
+The storage/fuzz workflow runs a 60-second campaign per target on push/PR, saves/restores grown corpora and uploads logs/findings/minimized corpora on completion. Manual `workflow_dispatch` defaults to 1,800 seconds per target, with a hard maximum of 1,800 in that workflow and a job timeout. No recurring paid schedule is enabled implicitly. Hosted jobs run in [goudam-jm/yali-db](https://github.com/goudam-jm/yali-db/actions/workflows/storage-and-fuzz.yml); see the recorded evidence below.
 
 The bounded local campaign is initial evidence, not an overnight soak or proof that no bugs remain. Longer native Linux sanitizer campaigns, additional seeds, TTL/concurrency histories, filesystem error schedules and independent review remain production gates. See the [recorded results](../docs/validation/2026-10-23.md), [Rust Fuzz Book](https://rust-fuzz.github.io/book/cargo-fuzz/guide.html), and [tutorial](https://rust-fuzz.github.io/book/cargo-fuzz/tutorial.html).
