@@ -27,3 +27,17 @@ SQLite’s full-rebuild observation includes checkpoint, VACUUM and another chec
 Validation: three Python tests cover nearest-rank statistics, output counts, workload vectors and atomic SQLite value/version/counter rollback; one Rust known-answer test checks the same generator vector. Formatting, strict Clippy on stable/MSRV and workflow lint passed during development. The initial read-only-container run exposed SQLite VACUUM needing a private writable temporary directory; both engines now receive a per-repetition TMPDIR, and SQLite receives the same SQLITE_TMPDIR.
 
 The native ARM64/x86-64 [benchmark workflow](../../.github/workflows/benchmarks.yml) repeats this profile and uploads complete reports for 14 days. Its checks assert correctness and valid measurements, not a timing threshold on shared runners. Native results must be read with their own mount/CPU/compiler metadata; they must not be substituted for these local observations.
+
+## Native hosted measurements
+
+The [benchmark workflow run](https://github.com/goudam-jm/yali-db/actions/runs/41284603691) passed on native x86-64 and ARM64 for implementation commit `a5527f548976493477ec732308b071bed88a2b3e`. The [run record](benchmark-hosted-run-2026-11-01.json) and full [x86-64](benchmark-hosted-amd64-2026-11-01.json) and [ARM64](benchmark-hosted-arm64-2026-11-01.json) reports preserve all measurements. Both source fingerprints match the local final-source report; subsequent evidence-only documentation changes do not change that fingerprint.
+
+Both hosts ran kernel 7.0.0-1017-azure, Rust 1.99.0, Python 3.12.3 and SQLite 3.45.1. x86-64 reported an Intel Xeon Platinum 8370C; ARM64 CPU model was not reported. Each repeated the complete workload three times per engine, checking 66,000 writes, 6,000 reads and 60,000 recovered records. Hosted totals are **132,000 writes, 12,000 reads and twelve verified fresh-process recoveries**.
+
+Both hosts mounted ext4 with `rw,relatime,discard,journal_async_commit,nobarrier,errors=remount-ro,commit=30,data=writeback`. These are shared-runner development measurements. The configured API flush requests do not turn those mounts into a power-loss-qualified storage stack; do not copy those settings into a production recommendation.
+
+x86-64 observed per-repetition warm-get p99 ranges of 3.188–3.407 µs for YaliDB and 27.269–70.451 µs for SQLite. Durable-overwrite p99 ranges were 348.427–600.574 µs and 257.506–543.598 µs respectively. Maximum observed full-rebuild pauses were 43.452 ms and 198.257 ms. Incremental instrumented process RSS was 169.984 bytes/key for YaliDB and 233.062 bytes/key for SQLite.
+
+ARM64 observed warm-get p99 ranges of 3.376–3.512 µs for YaliDB and 39.288–42.320 µs for SQLite. Durable-overwrite p99 ranges were 342.848–407.432 µs and 282.264–317.193 µs respectively. Maximum observed full-rebuild pauses were 79.735 ms and 461.055 ms. Incremental instrumented process RSS was 169.984 bytes/key for YaliDB and 226.918–227.328 bytes/key for SQLite.
+
+These independent runner environments are not a controlled ARM-versus-x86 comparison. The complete reports contain throughput, p50/p95/p99, process I/O accounting and sampled file-space metrics. Raw TSVs/stderr are downloaded under ignored `validation-results/benchmark-hosted-41284603691/` and retained by GitHub for 14 days. No timing-based CI approval or production SLO is inferred.
