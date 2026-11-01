@@ -1,0 +1,45 @@
+name: Embedded benchmark baseline
+on:
+  push:
+    paths:
+      - 'scripts/benchmark/**'
+      - 'yalidb-core/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - '.github/workflows/benchmarks.yml'
+  pull_request:
+    paths:
+      - 'scripts/benchmark/**'
+      - 'yalidb-core/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - '.github/workflows/benchmarks.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: benchmark-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+jobs:
+  baseline:
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: '1.99.0'
+      - run: cargo test -p yalidb-core --example benchmark --locked
+      - run: cargo build -p yalidb-core --release --example benchmark --locked
+      - run: python3 -m unittest discover -s scripts/benchmark -p 'test_*.py'
+      - run: python3 scripts/benchmark/run.py --keys 10000 --value-bytes 1024 --operations 1000 --repetitions 3 --output validation-results/benchmark
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: benchmark-${{ matrix.runner }}
+          path: validation-results/
+          retention-days: 14
