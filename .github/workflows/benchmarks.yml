@@ -1,6 +1,7 @@
 name: Embedded benchmark baseline
 on:
   push:
+    branches: [main]
     paths:
       - 'scripts/benchmark/**'
       - 'yalidb-core/**'
