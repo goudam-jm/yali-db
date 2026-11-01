@@ -1,9 +1,14 @@
 """Statistics, workload identity and SQLite's versioned transaction contract."""
 import tempfile
+import os
+import subprocess
+import sys
 import sqlite3
 from pathlib import Path
 import unittest
 from types import SimpleNamespace
+from unittest.mock import patch
+import run as benchmark
 from run import connect, indices, parse, percentile, put, verify_sqlite
 
 
@@ -49,6 +54,46 @@ class BenchmarkTests(unittest.TestCase):
                 with self.assertRaises(AssertionError): verify_sqlite(db, args)
             finally:
                 db.close()
+
+    def test_optimized_execution_is_rejected_before_creating_output(self):
+        with tempfile.TemporaryDirectory() as folder:
+            for flags, optimized_env in ((['-O'], False), ([], True)):
+                output = Path(folder) / ('environment' if optimized_env else 'flag')
+                env = dict(os.environ)
+                if optimized_env: env['PYTHONOPTIMIZE'] = '1'
+                command = [sys.executable, *flags, str(Path(benchmark.__file__).resolve()), '--keys', '1', '--operations', '1', '--repetitions', '1', '--output', str(output)]
+                result = subprocess.run(command, env=env, text=True, capture_output=True, timeout=10)
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('benchmark requires assertions', result.stderr)
+                self.assertFalse(output.exists())
+
+    def test_original_error_survives_sqlite_automatic_rollback(self):
+        with tempfile.TemporaryDirectory() as folder:
+            db = connect(Path(folder) / 'test.sqlite3')
+            try:
+                db.executescript('CREATE TABLE kv(k BLOB PRIMARY KEY, v BLOB NOT NULL, version INTEGER NOT NULL) WITHOUT ROWID; CREATE TABLE metadata(sequence INTEGER NOT NULL); INSERT INTO metadata VALUES (0);')
+                put(db, b'key', b'good', 1)
+                db.execute("CREATE TRIGGER refuse_metadata BEFORE UPDATE ON metadata BEGIN SELECT RAISE(ROLLBACK, 'original failure'); END")
+                with self.assertRaisesRegex(sqlite3.IntegrityError, 'original failure'):
+                    put(db, b'key', b'bad', 2)
+                self.assertFalse(db.in_transaction)
+                self.assertEqual(db.execute('SELECT v, version FROM kv').fetchall(), [(b'good', 1)])
+                self.assertEqual(db.execute('SELECT sequence FROM metadata').fetchone(), (1,))
+            finally:
+                db.close()
+
+    def test_timeout_preserves_partial_output_and_original_exception(self):
+        with tempfile.TemporaryDirectory() as folder:
+            directory = Path(folder) / 'data'; directory.mkdir()
+            output = Path(folder) / 'worker'
+            for stdout, stderr, expected in ((b'partial\xff', b'error detail', 'partial\ufffd'), ('text output', None, 'text output')):
+                error = subprocess.TimeoutExpired(['worker'], 900, output=stdout, stderr=stderr)
+                with patch.object(benchmark.subprocess, 'run', side_effect=error):
+                    with self.assertRaises(subprocess.TimeoutExpired) as raised:
+                        benchmark.worker(['worker'], directory, output)
+                self.assertIs(raised.exception, error)
+                self.assertEqual(output.with_suffix('.tsv').read_text(), expected)
+                self.assertEqual(output.with_suffix('.stderr').read_text(), 'error detail' if stderr else '')
 
 
 if __name__ == '__main__': unittest.main()

@@ -24,7 +24,7 @@ Rust and Python/SQLite use different client runtimes and timer overhead. Absolut
 
 ## Reproduce on Linux
 
-Use a new report directory:
+Use a new report directory. Assertions are mandatory: the harness rejects `python -O` and `PYTHONOPTIMIZE` before creating output or opening a database.
 
 ```sh
 cargo build -p yalidb-core --release --example benchmark --locked
@@ -32,7 +32,7 @@ python3 -m unittest discover -s scripts/benchmark -p 'test_*.py'
 python3 scripts/benchmark/run.py --keys 10000 --value-bytes 1024 --operations 1000 --repetitions 3 --output validation-results/benchmark-run
 ```
 
-`--work-dir EXISTING_DIRECTORY` places a new private temporary data directory on a selected filesystem. It never reuses a database already in that directory. Report directories cannot be reused. Successful runs remove their synthetic data; failures retain data and stderr/TSV diagnostics, copying data into the report when a separate work parent was used.
+`--work-dir EXISTING_DIRECTORY` places a new private temporary data directory on a selected filesystem. It never reuses a database already in that directory. Report directories cannot be reused. Successful runs remove their synthetic data; failures retain data and stderr/TSV diagnostics, including captured partial output on worker timeout, copying data into the report when a separate work parent was used.
 
 The controller runs one engine process at a time, with a separate fresh process for recovery. The workers are internal implementation details; do not invoke them against application data. SQLite temporary files stay in that repetition's private directory, allowing an otherwise read-only container. No cache dropping, host-device access or root privileges are needed.
 

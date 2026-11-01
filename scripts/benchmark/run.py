@@ -15,6 +15,9 @@ import tempfile
 import threading
 import time
 
+if not __debug__:
+    raise SystemExit('benchmark requires assertions; disable -O and PYTHONOPTIMIZE')
+
 ROOT = Path(__file__).resolve().parents[2]
 MASK = (1 << 64) - 1
 
@@ -54,7 +57,7 @@ def put(connection, key, value, sequence):
         connection.execute('UPDATE metadata SET sequence=?', (sequence,))
         connection.execute('COMMIT')
     except BaseException:
-        connection.execute('ROLLBACK')
+        if connection.in_transaction: connection.execute('ROLLBACK')
         raise
 
 
@@ -160,6 +163,12 @@ def disk_size(directory):
     return {'logical_bytes': logical, 'allocated_bytes': allocated}
 
 
+def save_worker_output(output, stdout, stderr):
+    for suffix, data in (('.tsv', stdout), ('.stderr', stderr)):
+        if isinstance(data, bytes): data = data.decode('utf-8', errors='replace')
+        output.with_suffix(suffix).write_text(data or '', encoding='utf-8')
+
+
 def worker(command, directory, output):
     stop = threading.Event()
     peak = disk_size(directory)
@@ -172,9 +181,12 @@ def worker(command, directory, output):
         except BaseException as error: errors.append(error)
     thread = threading.Thread(target=sample, daemon=True); thread.start()
     try:
-        completed = subprocess.run(command, env={**os.environ, 'TMPDIR': str(directory), 'SQLITE_TMPDIR': str(directory)}, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=900)
-        output.with_suffix('.tsv').write_text(completed.stdout)
-        output.with_suffix('.stderr').write_text(completed.stderr)
+        try:
+            completed = subprocess.run(command, env={**os.environ, 'TMPDIR': str(directory), 'SQLITE_TMPDIR': str(directory)}, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=900)
+        except subprocess.TimeoutExpired as error:
+            save_worker_output(output, error.stdout, error.stderr)
+            raise
+        save_worker_output(output, completed.stdout, completed.stderr)
         assert completed.returncode == 0, f'worker failed: inspect {output.with_suffix(".stderr")}'
         result = parse(completed.stdout)
     finally:
