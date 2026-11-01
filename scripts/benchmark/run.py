@@ -58,6 +58,17 @@ def put(connection, key, value, sequence):
         raise
 
 
+def verify_sqlite(connection, args):
+    sequence = connection.execute('SELECT sequence FROM metadata').fetchone()[0]
+    assert sequence == args.keys + args.operations
+    updated = {index: args.keys + operation + 1 for operation, index in enumerate(indices(args.seed, args.operations, args.keys))}
+    assert connection.execute('SELECT count(*) FROM kv').fetchone()[0] == args.keys
+    for index in range(args.keys):
+        row = connection.execute('SELECT v, version FROM kv WHERE k=?', (index.to_bytes(8, 'big'),)).fetchone()
+        assert row == (bytes([(index + (index in updated)) % 251]) * args.value_bytes, updated.get(index, index + 1))
+    return sequence
+
+
 def samples(phase, times, elapsed):
     for value in times: print(f'SAMPLE\t{phase}\t{value}')
     print(f'ELAPSED\t{phase}\t{elapsed}\t{len(times)}')
@@ -113,11 +124,7 @@ def sqlite_worker(args):
     assert connection.execute('PRAGMA wal_checkpoint(TRUNCATE)').fetchone()[0] == 0
     print(f'DURATION\tmaintenance\t{time.perf_counter_ns() - started}')
     resource('maintained')
-    updated = {index: args.keys + operation + 1 for operation, index in enumerate(indices(args.seed, args.operations, args.keys))}
-    assert connection.execute('SELECT count(*) FROM kv').fetchone()[0] == args.keys
-    for index in range(args.keys):
-        row = connection.execute('SELECT v, version FROM kv WHERE k=?', (index.to_bytes(8, 'big'),)).fetchone()
-        assert row == (bytes([(index + (index in updated)) % 251]) * args.value_bytes, updated.get(index, index + 1))
+    sequence = verify_sqlite(connection, args)
     print(f'VERIFIED\t{args.keys}\t{sequence}')
     connection.close()
 

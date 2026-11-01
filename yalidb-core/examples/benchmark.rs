@@ -150,7 +150,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             updated.get(&index).copied().unwrap_or(index as u64 + 1)
         );
     }
-    println!("VERIFIED\t{keys}\t{sequence}");
+    let final_stats = db.stats()?;
+    assert_eq!(final_stats.sequence, (keys + operations) as u64);
+    assert_eq!(final_stats.indexed_keys, keys);
+    println!("VERIFIED\t{keys}\t{}", final_stats.sequence);
     Ok(())
 }
 

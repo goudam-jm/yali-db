@@ -3,7 +3,8 @@ import tempfile
 import sqlite3
 from pathlib import Path
 import unittest
-from run import connect, indices, parse, percentile, put
+from types import SimpleNamespace
+from run import connect, indices, parse, percentile, put, verify_sqlite
 
 
 class BenchmarkTests(unittest.TestCase):
@@ -32,6 +33,22 @@ class BenchmarkTests(unittest.TestCase):
             self.assertEqual(db.execute('SELECT v, version FROM kv').fetchall(), [(b'updated', 2)])
             self.assertEqual(db.execute('SELECT sequence FROM metadata').fetchone(), (2,))
             db.close()
+
+    def test_final_verifier_rejects_counter_loss_with_intact_rows(self):
+        with tempfile.TemporaryDirectory() as folder:
+            db = connect(Path(folder) / 'test.sqlite3')
+            db.executescript('CREATE TABLE kv(k BLOB PRIMARY KEY, v BLOB NOT NULL, version INTEGER NOT NULL) WITHOUT ROWID; CREATE TABLE metadata(sequence INTEGER NOT NULL); INSERT INTO metadata VALUES (0);')
+            args = SimpleNamespace(keys=3, operations=1, seed=42, value_bytes=8)
+            try:
+                for index in range(args.keys):
+                    put(db, index.to_bytes(8, 'big'), bytes([index]) * 8, index + 1)
+                index = next(indices(args.seed, 1, args.keys))
+                put(db, index.to_bytes(8, 'big'), bytes([index + 1]) * 8, 4)
+                self.assertEqual(verify_sqlite(db, args), 4)
+                db.execute('UPDATE metadata SET sequence=0')
+                with self.assertRaises(AssertionError): verify_sqlite(db, args)
+            finally:
+                db.close()
 
 
 if __name__ == '__main__': unittest.main()
