@@ -1,0 +1,762 @@
+{
+  "status": "passed",
+  "recorded_at_utc": "2026-11-01T07:19:00Z",
+  "source_sha256": "2cc5d8a274eee0a86be554a183d26b5377e66cabbd1de6f6f076a3e0fd551775",
+  "ci_sha": null,
+  "kernel": "7.0.14-linuxkit",
+  "machine": "aarch64",
+  "cpu_count": 12,
+  "cpu_model": "not reported",
+  "cgroup_cpu_max": "200000 100000",
+  "cgroup_memory_max": "1073741824",
+  "mount": {
+    "filesystems": [
+      {
+        "fstype": "ext4",
+        "options": "rw,relatime,discard"
+      }
+    ]
+  },
+  "rust": "rustc 1.99.0 (b940084d7 2026-09-28)",
+  "disk_sampling": {
+    "interval_ms": 5,
+    "scope": "visible database-directory files; excludes unlinked temporary files",
+    "bound": "observed lower bound"
+  },
+  "sqlite": "3.40.1",
+  "python": "3.11.2",
+  "profile": {
+    "keys": 10000,
+    "key_bytes": 8,
+    "value_bytes": 1024,
+    "operations_per_phase": 1000,
+    "repetitions": 3,
+    "seed": 42,
+    "concurrency": 1,
+    "arrival_model": "closed-loop"
+  },
+  "sqlite_config": {
+    "journal_mode": "WAL",
+    "synchronous": "FULL",
+    "wal_autocheckpoint_pages": 1000,
+    "cache_size_kib": 2048,
+    "mmap_size": 0,
+    "global_version_counter": true
+  },
+  "runs": [
+    {
+      "engine": "yalidb",
+      "maintenance_operation": "Db::compact",
+      "repetition": 0,
+      "phases": {
+        "populate": {
+          "count": 10000,
+          "p50_ns": 318458,
+          "p95_ns": 613750,
+          "p99_ns": 928375,
+          "max_ns": 9658416,
+          "throughput_ops_s": 2835.180668776507
+        },
+        "warm_get": {
+          "count": 1000,
+          "p50_ns": 1375,
+          "p95_ns": 1916,
+          "p99_ns": 2583,
+          "max_ns": 20917,
+          "throughput_ops_s": 669512.0930621809
+        },
+        "overwrite": {
+          "count": 1000,
+          "p50_ns": 316208,
+          "p95_ns": 443792,
+          "p99_ns": 498125,
+          "max_ns": 786958,
+          "throughput_ops_s": 3185.242978233782
+        }
+      },
+      "load": {
+        "elapsed_ns": {
+          "populate": {
+            "nanoseconds": 3527112085,
+            "count": 10000
+          },
+          "warm_get": {
+            "nanoseconds": 1493625,
+            "count": 1000
+          },
+          "overwrite": {
+            "nanoseconds": 313947792,
+            "count": 1000
+          }
+        },
+        "resources": {
+          "runtime": {
+            "rss_bytes": 1781760,
+            "peak_rss_bytes": 1781760,
+            "process_write_bytes": 0
+          },
+          "opened": {
+            "rss_bytes": 1794048,
+            "peak_rss_bytes": 1794048,
+            "process_write_bytes": 8192
+          },
+          "populated": {
+            "rss_bytes": 3518464,
+            "peak_rss_bytes": 3645440,
+            "process_write_bytes": 51687424
+          },
+          "updated": {
+            "rss_bytes": 3518464,
+            "peak_rss_bytes": 3645440,
+            "process_write_bytes": 56852480
+          }
+        },
+        "durations_ns": {
+          "open": 2627959
+        },
+        "sampled_peak_database_files": {
+          "logical_bytes": 11803048,
+          "allocated_bytes": 11812864
+        },
+        "final_disk": {
+          "logical_bytes": 11803048,
+          "allocated_bytes": 11812864
+        }
+      },
+      "recovery": {
+        "samples_ns": {},
+        "elapsed_ns": {},
+        "resources": {
+          "runtime": {
+            "rss_bytes": 1781760,
+            "peak_rss_bytes": 1781760,
+            "process_write_bytes": 0
+          },
+          "opened": {
+            "rss_bytes": 3182592,
+            "peak_rss_bytes": 3493888,
+            "process_write_bytes": 0
+          },
+          "maintained": {
+            "rss_bytes": 3678208,
+            "peak_rss_bytes": 4591616,
+            "process_write_bytes": 10735616
+          }
+        },
+        "durations_ns": {
+          "open": 10573875,
+          "maintenance": 28475458
+        },
+        "verified": [
+          10000,
+          11000
+        ],
+        "sampled_peak_database_files": {
+          "logical_bytes": 22533076,
+          "allocated_bytes": 22544384
+        },
+        "final_disk": {
+          "logical_bytes": 10730048,
+          "allocated_bytes": 10735616
+        }
+      },
+      "incremental_process_rss_bytes_per_key": 172.4416,
+      "process_write_bytes_per_logical_payload_byte": 5.9538491895701195
+    },
+    {
+      "engine": "sqlite",
+      "maintenance_operation": "wal_checkpoint(TRUNCATE); VACUUM; wal_checkpoint(TRUNCATE)",
+      "repetition": 0,
+      "phases": {
+        "populate": {
+          "count": 10000,
+          "p50_ns": 77666,
+          "p95_ns": 119417,
+          "p99_ns": 826291,
+          "max_ns": 3510750,
+          "throughput_ops_s": 9588.272392271565
+        },
+        "warm_get": {
+          "count": 1000,
+          "p50_ns": 8208,
+          "p95_ns": 11292,
+          "p99_ns": 16542,
+          "max_ns": 66791,
+          "throughput_ops_s": 112789.37948133353
+        },
+        "overwrite": {
+          "count": 1000,
+          "p50_ns": 91292,
+          "p95_ns": 118375,
+          "p99_ns": 197625,
+          "max_ns": 9397625,
+          "throughput_ops_s": 8235.067227012483
+        }
+      },
+      "load": {
+        "elapsed_ns": {
+          "populate": {
+            "nanoseconds": 1042940750,
+            "count": 10000
+          },
+          "warm_get": {
+            "nanoseconds": 8866083,
+            "count": 1000
+          },
+          "overwrite": {
+            "nanoseconds": 121431917,
+            "count": 1000
+          }
+        },
+        "resources": {
+          "runtime": {
+            "rss_bytes": 17944576,
+            "peak_rss_bytes": 17944576,
+            "process_write_bytes": 0
+          },
+          "opened": {
+            "rss_bytes": 18563072,
+            "peak_rss_bytes": 18563072,
+            "process_write_bytes": 81920
+          },
+          "populated": {
+            "rss_bytes": 21151744,
+            "peak_rss_bytes": 21151744,
+            "process_write_bytes": 313565184
+          },
+          "updated": {
+            "rss_bytes": 21168128,
+            "peak_rss_bytes": 21168128,
+            "process_write_bytes": 337575936
+          }
+        },
+        "durations_ns": {
+          "open": 4818792
+        },
+        "sampled_peak_database_files": {
+          "logical_bytes": 51027688,
+          "allocated_bytes": 51027968
+        },
+        "final_disk": {
+          "logical_bytes": 51027688,
+          "allocated_bytes": 51027968
+        }
+      },
+      "recovery": {
+        "samples_ns": {},
+        "elapsed_ns": {},
+        "resources": {
+          "runtime": {
+            "rss_bytes": 17944576,
+            "peak_rss_bytes": 17944576,
+            "process_write_bytes": 0
+          },
+          "opened": {
+            "rss_bytes": 18558976,
+            "peak_rss_bytes": 18558976,
+            "process_write_bytes": 28672
+          },
+          "maintained": {
+            "rss_bytes": 22970368,
+            "peak_rss_bytes": 22970368,
+            "process_write_bytes": 138833920
+          }
+        },
+        "durations_ns": {
+          "open": 281667,
+          "maintenance": 111592792
+        },
+        "verified": [
+          10000,
+          11000
+        ],
+        "sampled_peak_database_files": {
+          "logical_bytes": 93298504,
+          "allocated_bytes": 93298688
+        },
+        "final_disk": {
+          "logical_bytes": 46100480,
+          "allocated_bytes": 46100480
+        }
+      },
+      "incremental_process_rss_bytes_per_key": 258.8672,
+      "process_write_bytes_per_logical_payload_byte": 41.96704157857646
+    },
+    {
+      "engine": "sqlite",
+      "maintenance_operation": "wal_checkpoint(TRUNCATE); VACUUM; wal_checkpoint(TRUNCATE)",
+      "repetition": 1,
+      "phases": {
+        "populate": {
+          "count": 10000,
+          "p50_ns": 80458,
+          "p95_ns": 113125,
+          "p99_ns": 514167,
+          "max_ns": 1905958,
+          "throughput_ops_s": 10279.111267751976
+        },
+        "warm_get": {
+          "count": 1000,
+          "p50_ns": 7375,
+          "p95_ns": 10750,
+          "p99_ns": 15500,
+          "max_ns": 66917,
+          "throughput_ops_s": 123119.86728663265
+        },
+        "overwrite": {
+          "count": 1000,
+          "p50_ns": 81125,
+          "p95_ns": 106084,
+          "p99_ns": 126250,
+          "max_ns": 9348167,
+          "throughput_ops_s": 9073.072255679177
+        }
+      },
+      "load": {
+        "elapsed_ns": {
+          "populate": {
+            "nanoseconds": 972846751,
+            "count": 10000
+          },
+          "warm_get": {
+            "nanoseconds": 8122166,
+            "count": 1000
+          },
+          "overwrite": {
+            "nanoseconds": 110216250,
+            "count": 1000
+          }
+        },
+        "resources": {
+          "runtime": {
+            "rss_bytes": 17944576,
+            "peak_rss_bytes": 17944576,
+            "process_write_bytes": 0
+          },
+          "opened": {
+            "rss_bytes": 18563072,
+            "peak_rss_bytes": 18563072,
+            "process_write_bytes": 81920
+          },
+          "populated": {
+            "rss_bytes": 21151744,
+            "peak_rss_bytes": 21151744,
+            "process_write_bytes": 313565184
+          },
+          "updated": {
+            "rss_bytes": 21168128,
+            "peak_rss_bytes": 21168128,
+            "process_write_bytes": 337457152
+          }
+        },
+        "durations_ns": {
+          "open": 3566333
+        },
+        "sampled_peak_database_files": {
+          "logical_bytes": 51027688,
+          "allocated_bytes": 51032064
+        },
+        "final_disk": {
+          "logical_bytes": 51027688,
+          "allocated_bytes": 51032064
+        }
+      },
+      "recovery": {
+        "samples_ns": {},
+        "elapsed_ns": {},
+        "resources": {
+          "runtime": {
+            "rss_bytes": 17940480,
+            "peak_rss_bytes": 17940480,
+            "process_write_bytes": 0
+          },
+          "opened": {
+            "rss_bytes": 18554880,
+            "peak_rss_bytes": 18554880,
+            "process_write_bytes": 28672
+          },
+          "maintained": {
+            "rss_bytes": 22966272,
+            "peak_rss_bytes": 22966272,
+            "process_write_bytes": 138792960
+          }
+        },
+        "durations_ns": {
+          "open": 223166,
+          "maintenance": 105807583
+        },
+        "verified": [
+          10000,
+          11000
+        ],
+        "sampled_peak_database_files": {
+          "logical_bytes": 93298504,
+          "allocated_bytes": 93298688
+        },
+        "final_disk": {
+          "logical_bytes": 46100480,
+          "allocated_bytes": 46100480
+        }
+      },
+      "incremental_process_rss_bytes_per_key": 258.8672,
+      "process_write_bytes_per_logical_payload_byte": 41.952969696969696
+    },
+    {
+      "engine": "yalidb",
+      "maintenance_operation": "Db::compact",
+      "repetition": 1,
+      "phases": {
+        "populate": {
+          "count": 10000,
+          "p50_ns": 273667,
+          "p95_ns": 406583,
+          "p99_ns": 483958,
+          "max_ns": 6585750,
+          "throughput_ops_s": 3736.7449463938115
+        },
+        "warm_get": {
+          "count": 1000,
+          "p50_ns": 1208,
+          "p95_ns": 1583,
+          "p99_ns": 1917,
+          "max_ns": 4542,
+          "throughput_ops_s": 795676.6115634091
+        },
+        "overwrite": {
+          "count": 1000,
+          "p50_ns": 180041,
+          "p95_ns": 233125,
+          "p99_ns": 296792,
+          "max_ns": 655541,
+          "throughput_ops_s": 5347.493496111036
+        }
+      },
+      "load": {
+        "elapsed_ns": {
+          "populate": {
+            "nanoseconds": 2676125918,
+            "count": 10000
+          },
+          "warm_get": {
+            "nanoseconds": 1256792,
+            "count": 1000
+          },
+          "overwrite": {
+            "nanoseconds": 187003500,
+            "count": 1000
+          }
+        },
+        "resources": {
+          "runtime": {
+            "rss_bytes": 1769472,
+            "peak_rss_bytes": 1769472,
+            "process_write_bytes": 0
+          },
+          "opened": {
+            "rss_bytes": 1781760,
+            "peak_rss_bytes": 1781760,
+            "process_write_bytes": 8192
+          },
+          "populated": {
+            "rss_bytes": 3506176,
+            "peak_rss_bytes": 3809280,
+            "process_write_bytes": 51687424
+          },
+          "updated": {
+            "rss_bytes": 3506176,
+            "peak_rss_bytes": 3809280,
+            "process_write_bytes": 56852480
+          }
+        },
+        "durations_ns": {
+          "open": 2846625
+        },
+        "sampled_peak_database_files": {
+          "logical_bytes": 11803048,
+          "allocated_bytes": 11812864
+        },
+        "final_disk": {
+          "logical_bytes": 11803048,
+          "allocated_bytes": 11812864
+        }
+      },
+      "recovery": {
+        "samples_ns": {},
+        "elapsed_ns": {},
+        "resources": {
+          "runtime": {
+            "rss_bytes": 1773568,
+            "peak_rss_bytes": 1773568,
+            "process_write_bytes": 0
+          },
+          "opened": {
+            "rss_bytes": 3174400,
+            "peak_rss_bytes": 3485696,
+            "process_write_bytes": 0
+          },
+          "maintained": {
+            "rss_bytes": 3665920,
+            "peak_rss_bytes": 4583424,
+            "process_write_bytes": 10735616
+          }
+        },
+        "durations_ns": {
+          "open": 9425042,
+          "maintenance": 27269041
+        },
+        "verified": [
+          10000,
+          11000
+        ],
+        "sampled_peak_database_files": {
+          "logical_bytes": 22533096,
+          "allocated_bytes": 22548480
+        },
+        "final_disk": {
+          "logical_bytes": 10730048,
+          "allocated_bytes": 10735616
+        }
+      },
+      "incremental_process_rss_bytes_per_key": 172.4416,
+      "process_write_bytes_per_logical_payload_byte": 5.9538491895701195
+    },
+    {
+      "engine": "yalidb",
+      "maintenance_operation": "Db::compact",
+      "repetition": 2,
+      "phases": {
+        "populate": {
+          "count": 10000,
+          "p50_ns": 181041,
+          "p95_ns": 292375,
+          "p99_ns": 466250,
+          "max_ns": 3434834,
+          "throughput_ops_s": 5042.8911533613955
+        },
+        "warm_get": {
+          "count": 1000,
+          "p50_ns": 1375,
+          "p95_ns": 3667,
+          "p99_ns": 5417,
+          "max_ns": 9541,
+          "throughput_ops_s": 606183.3122583602
+        },
+        "overwrite": {
+          "count": 1000,
+          "p50_ns": 199334,
+          "p95_ns": 266958,
+          "p99_ns": 308292,
+          "max_ns": 510500,
+          "throughput_ops_s": 4838.953576289127
+        }
+      },
+      "load": {
+        "elapsed_ns": {
+          "populate": {
+            "nanoseconds": 1982989459,
+            "count": 10000
+          },
+          "warm_get": {
+            "nanoseconds": 1649666,
+            "count": 1000
+          },
+          "overwrite": {
+            "nanoseconds": 206656250,
+            "count": 1000
+          }
+        },
+        "resources": {
+          "runtime": {
+            "rss_bytes": 1781760,
+            "peak_rss_bytes": 1781760,
+            "process_write_bytes": 0
+          },
+          "opened": {
+            "rss_bytes": 1794048,
+            "peak_rss_bytes": 1794048,
+            "process_write_bytes": 8192
+          },
+          "populated": {
+            "rss_bytes": 3518464,
+            "peak_rss_bytes": 3772416,
+            "process_write_bytes": 51687424
+          },
+          "updated": {
+            "rss_bytes": 3518464,
+            "peak_rss_bytes": 3772416,
+            "process_write_bytes": 56852480
+          }
+        },
+        "durations_ns": {
+          "open": 1326333
+        },
+        "sampled_peak_database_files": {
+          "logical_bytes": 11803048,
+          "allocated_bytes": 11808768
+        },
+        "final_disk": {
+          "logical_bytes": 11803048,
+          "allocated_bytes": 11808768
+        }
+      },
+      "recovery": {
+        "samples_ns": {},
+        "elapsed_ns": {},
+        "resources": {
+          "runtime": {
+            "rss_bytes": 1781760,
+            "peak_rss_bytes": 1781760,
+            "process_write_bytes": 0
+          },
+          "opened": {
+            "rss_bytes": 3182592,
+            "peak_rss_bytes": 3493888,
+            "process_write_bytes": 0
+          },
+          "maintained": {
+            "rss_bytes": 3674112,
+            "peak_rss_bytes": 4591616,
+            "process_write_bytes": 10735616
+          }
+        },
+        "durations_ns": {
+          "open": 8987375,
+          "maintenance": 24746959
+        },
+        "verified": [
+          10000,
+          11000
+        ],
+        "sampled_peak_database_files": {
+          "logical_bytes": 22533076,
+          "allocated_bytes": 22540288
+        },
+        "final_disk": {
+          "logical_bytes": 10730048,
+          "allocated_bytes": 10735616
+        }
+      },
+      "incremental_process_rss_bytes_per_key": 172.4416,
+      "process_write_bytes_per_logical_payload_byte": 5.9538491895701195
+    },
+    {
+      "engine": "sqlite",
+      "maintenance_operation": "wal_checkpoint(TRUNCATE); VACUUM; wal_checkpoint(TRUNCATE)",
+      "repetition": 2,
+      "phases": {
+        "populate": {
+          "count": 10000,
+          "p50_ns": 86292,
+          "p95_ns": 134667,
+          "p99_ns": 264166,
+          "max_ns": 2251708,
+          "throughput_ops_s": 9860.030701670597
+        },
+        "warm_get": {
+          "count": 1000,
+          "p50_ns": 8125,
+          "p95_ns": 21000,
+          "p99_ns": 35209,
+          "max_ns": 51250,
+          "throughput_ops_s": 96661.94408628509
+        },
+        "overwrite": {
+          "count": 1000,
+          "p50_ns": 83708,
+          "p95_ns": 99500,
+          "p99_ns": 116166,
+          "max_ns": 8498291,
+          "throughput_ops_s": 9100.802821860449
+        }
+      },
+      "load": {
+        "elapsed_ns": {
+          "populate": {
+            "nanoseconds": 1014195625,
+            "count": 10000
+          },
+          "warm_get": {
+            "nanoseconds": 10345333,
+            "count": 1000
+          },
+          "overwrite": {
+            "nanoseconds": 109880416,
+            "count": 1000
+          }
+        },
+        "resources": {
+          "runtime": {
+            "rss_bytes": 17944576,
+            "peak_rss_bytes": 17944576,
+            "process_write_bytes": 0
+          },
+          "opened": {
+            "rss_bytes": 18563072,
+            "peak_rss_bytes": 18563072,
+            "process_write_bytes": 81920
+          },
+          "populated": {
+            "rss_bytes": 21151744,
+            "peak_rss_bytes": 21151744,
+            "process_write_bytes": 313565184
+          },
+          "updated": {
+            "rss_bytes": 21172224,
+            "peak_rss_bytes": 21172224,
+            "process_write_bytes": 337518592
+          }
+        },
+        "durations_ns": {
+          "open": 2440042
+        },
+        "sampled_peak_database_files": {
+          "logical_bytes": 51027688,
+          "allocated_bytes": 51032064
+        },
+        "final_disk": {
+          "logical_bytes": 51027688,
+          "allocated_bytes": 51032064
+        }
+      },
+      "recovery": {
+        "samples_ns": {},
+        "elapsed_ns": {},
+        "resources": {
+          "runtime": {
+            "rss_bytes": 17944576,
+            "peak_rss_bytes": 17944576,
+            "process_write_bytes": 0
+          },
+          "opened": {
+            "rss_bytes": 18558976,
+            "peak_rss_bytes": 18558976,
+            "process_write_bytes": 28672
+          },
+          "maintained": {
+            "rss_bytes": 22970368,
+            "peak_rss_bytes": 22970368,
+            "process_write_bytes": 138846208
+          }
+        },
+        "durations_ns": {
+          "open": 238000,
+          "maintenance": 131706209
+        },
+        "verified": [
+          10000,
+          11000
+        ],
+        "sampled_peak_database_files": {
+          "logical_bytes": 93298504,
+          "allocated_bytes": 93302784
+        },
+        "final_disk": {
+          "logical_bytes": 46100480,
+          "allocated_bytes": 46104576
+        }
+      },
+      "incremental_process_rss_bytes_per_key": 258.8672,
+      "process_write_bytes_per_logical_payload_byte": 41.9630725863284
+    }
+  ]
+}

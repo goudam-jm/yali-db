@@ -59,6 +59,8 @@ See the [wire API](docs/http-api.md) and [Python example](examples/python_client
 - [Disposable VM power-loss validation](docs/vm-power-loss-testing.md)
 - [Coverage-guided fuzzing](fuzz/README.md)
 - [Measured validation results](docs/validation/2026-10-23.md)
+- [Embedded benchmarking](docs/benchmarking.md)
+- [Initial benchmark evidence](docs/validation/benchmark-2026-11-01.md)
 - [Rust learning path](docs/learning/README.md)
 
 The learning guides remain exercises you can implement independently; the workspace now includes a reference implementation. No benchmark advantage or production reliability claim is implied by passing tests.
